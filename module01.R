@@ -5,23 +5,44 @@
 # One way of creating a matrix
 # We create a vector of length 6
 help("c")
-c <- c(2, 1, 3,  4, 6 ,12)
+c <- c(2, 1, 3, 4, 6, 12)
 
-# Then we "fill" our matrix with it
+# We can comment out the return for readability of our code.
+c <- c(2, 1,  3, #
+       4, 6, 12)
+
+# Then we "fill out" our matrix with it
 help("matrix")
+
 M <- matrix(c, nrow = 2, ncol = 3, byrow = TRUE)
 # And we take a look at it
 M
+
+# Check out the function as.matrix( ) too
+help("as.matrix")
 
 # Matrix operations
 # 1. Addition and substraction
 
 # Addition
 # Let's add a second Matrix
-N <- matrix(c(1,2,3,  3, 2, 1), nrow = 2, ncol = 3, byrow = TRUE)
+N <- matrix( c(1,2,3,  3, 2, 1), nrow = 2, ncol = 3, byrow = TRUE)
 
-S <- N + N
+# And add them (matrices have to have the same dimensions for addition)
+dim(M)
+
+dim(N)
+
+S <- M + N
+
 S
+
+# What happens if they don't have the same dimensions
+
+O = matrix( c(2,2,3,4), ncol = 2, nrow = 2, byrow = TRUE)
+
+M+O
+
 
 # Substraction
 D = M - N
@@ -44,6 +65,8 @@ isTRUE(M == N)
 # The null matrix
 # The equivalent of zero in ordinary algebra
 Z <- matrix(c(0,0,0,  0, 0, 0), nrow = 2, ncol = 3, byrow = TRUE)
+
+# You can pass a scalar to the matrix() function if you want all cells to be the same.
 Z <- matrix( 0, nrow = 2, ncol = 3, byrow = TRUE)
 
 # 2. Multiplication
@@ -52,6 +75,21 @@ Mx2 <- M * 2
 
 # Multiplication of a Matrix by another Matrix
 # Unintuitive but completely logical according to notation
+
+# If we have     P     =    M    x    Q
+#             (m x n)    (m x r)   (r x n)
+
+# in order to be conformable for multiplication the number 
+# of columns in the matrix on the left must be the same as 
+# the number of rows in the matrix on the right. 
+
+# The definition of matrix multiplication also means that
+# the product matrix, P, will have the same number of rows
+# as M and the same number of columns as Q. 
+
+# order of multiplication makes a difference. In this example,
+# the product the other way around, QM, cannot even be found, 
+# since there are three columns in Q but only two rows in M
 
 # Let's create a 3 x 3 matrix Q
 Q = matrix(c(2,0,4,  1,1,2,  3,4,5), nrow = 3, ncol = 3, byrow = TRUE)
@@ -83,16 +121,19 @@ I <- matrix( c(1, 0, 0,   0, 1, 0,  0, 0, 1), nrow = 3, ncol = 3, byrow = TRUE)
 # Then we recall what M looks like
 M
 
-# And postmultiply M by I (remember matrix multiply symbol)
+# And postmultiply M by I (remember matrix multiply function)
 M %*% I
 
 # The result is M, but what if M has dimensions in the thousands of
-# and rows? We don't need to type it all. We get the dimensions of M
+# and rows? We don't need to type them all. We get the dimensions of M
 dim(M)
 
 # > dim(M)
 # [1] 2 3
 # Then we know that our identity matrix has to be of dimensions 3 x 3.
+# Using the function diag()
+
+help("diag")
 
 I3 <-  diag(3)
 
@@ -117,8 +158,8 @@ Mt <- t(M)
 # In matrix algebra an n-element column vector is an n-element row vector.
 # In R this is somewhat irrelevant as vectors are dimensionless and you can
 # use them indistinctly in pre or post-multiplications. R uses the recycle
-# rule. You can however force it into a Matrix if it eases your undestanding
-# of the calculation.
+# rule. You can however force a vector into a Matrix if it eases your 
+# undestanding of the calculation.
 t(c)
 t( t(c) )
 
@@ -195,3 +236,87 @@ solve(C)
 # Going back to to our example: x = A^-1 b 
 x = solve(A) %*% b
 x
+
+
+# Diagonal matrices
+
+# A useful notational device is available for creating a diagonal matrix
+# from a vector. Then the "hat" version of an "x" vector is a diagonal
+# matrix with the elements of x strung out along its main diagonal.
+
+# For          x  =       [,1]
+#                    [1,] "x1"
+#                    [2,] "x2"
+#                    [3,] "x3"
+
+#   ^
+#   x  [or xhat]  =      [,1] [,2] [,3]
+#                    [1,] "x1" "0"  "0" 
+#                    [2,] "0"  "x2" "0" 
+#                    [3,] "0"  "0"  "x3"
+
+# A hat is also used to denote a matrix formed from the diagonal of an
+# existing matrix turning all off-diagonal elements to zero. And an
+# inverse hat is used to denote the same matrix but with all of its
+# diagonal elements turned to zero.
+
+# For our Q matrix
+
+#     Q =      [,1] [,2] [,3]
+#         [1,]    2    0    4
+#         [2,]    1    1    2
+#         [3,]    3    4    5
+
+#  Qhat =      [,1] [,2] [,3]
+#         [1,]    2    0    0
+#         [2,]    0    1    0
+#         [3,]    0    0    5
+
+Qhat <- diag(diag(Q))
+
+# Quhat =      [,1] [,2] [,3]
+#         [1,]    0    0    4
+#         [2,]    1    0    2
+#         [3,]    3    4    0
+
+Quhat       <- Q
+diag(Quhat) <- 0
+
+# The inverse of a diagonal matrix is another diagonal matrix
+# each of whose elements is just the reciprocal of the original
+# element. For Qhat:
+
+invQhat <- solve(Qhat)
+
+# To check that this is the case, the result of multiplying both
+# matrices should be an identity matrix.
+
+invQhat %*% Qhat
+
+# Finally, When a diagonal matrix, D, postmultiplies another 
+# matrix, M, the jth element in D, dj, multiplies all of the
+# elements in the jth column of M, and when a diagonal matrix
+# premultiplies M, dj multiplies all of the elements in the 
+# jth row of M.
+
+# This is useful, for example, when we have coeficients per
+# dollar of tonnes of pollution by industry.
+
+
+# Summation vectors
+
+# If M is postmultiplied by an n-element column of 1s, we get
+# the row sums from M. If it is premultiplied by an m-element 
+# row vector of 1s, the result is the column sums. In R...
+
+M %*% c(1,1,1) # remember the matrix multiply function
+
+c(1,1) %*% M
+
+# Otras formas de obtener esos vectores son:
+colSums(M)
+rowSums(M)
+
+
+
+
