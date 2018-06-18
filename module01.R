@@ -66,7 +66,8 @@ isTRUE(M == N)
 # The equivalent of zero in ordinary algebra
 Z <- matrix(c(0,0,0,  0, 0, 0), nrow = 2, ncol = 3, byrow = TRUE)
 
-# You can pass a scalar to the matrix() function if you want all cells to be the same.
+# You can pass a scalar to the matrix() function if you want all 
+# cells to be the same.
 Z <- matrix( 0, nrow = 2, ncol = 3, byrow = TRUE)
 
 # 2. Multiplication
@@ -293,7 +294,7 @@ invQhat <- solve(Qhat)
 
 invQhat %*% Qhat
 
-# Finally, When a diagonal matrix, D, postmultiplies another 
+# When a diagonal matrix, D, postmultiplies another 
 # matrix, M, the jth element in D, dj, multiplies all of the
 # elements in the jth column of M, and when a diagonal matrix
 # premultiplies M, dj multiplies all of the elements in the 
@@ -302,21 +303,35 @@ invQhat %*% Qhat
 # This is useful, for example, when we have coeficients per
 # dollar of tonnes of pollution by industry.
 
-
 # Summation vectors
 
-# If M is postmultiplied by an n-element column of 1s, we get
-# the row sums from M. If it is premultiplied by an m-element 
-# row vector of 1s, the result is the column sums. In R...
+# If M is postmultiplied by an n-element column vector of 1's
+# the results will be an m-element column vector containing the
+# row sums of M.
 
-M %*% c(1,1,1) # remember the matrix multiply function
+# If M is premultiplied by an m-element row vector of 1's, the
+# result will be an n-elemnt row vector containing the column
+# sums of M.
+
+#   M =      [,1] [,2] [,3] Total
+#       [1,]    2    1    3     6
+#       [2,]    4    6   12    22
+#            --------------
+#     Total     6    7   15
+
+# Row sums
+M %*% matrix(1, ncol = 1, nrow = 3)
+
+M %*% c(1,1,1)
+
+# Column sums
+matrix(1, ncol = 2, nrow = 1) %*% M
 
 c(1,1) %*% M
 
-# Otras formas de obtener esos vectores son:
+# Cheat versions
 colSums(M)
 rowSums(M)
 
-
-
+# Imagine using this when you have thousands of rows and columns.
 
