@@ -39,13 +39,13 @@ S
 
 # What happens if they don't have the same dimensions
 
-O = matrix( c(2,2,3,4), ncol = 2, nrow = 2, byrow = TRUE)
+O <- matrix( c(2,2,3,4), ncol = 2, nrow = 2, byrow = TRUE)
 
 M+O
 
 
 # Substraction
-D = M - N
+D <- M - N
 D
 
 # Equality
@@ -60,6 +60,9 @@ dim(N)
 M == N
 
 # Check for equality
+
+help("isTRUE")
+
 isTRUE(M == N)
 
 # The null matrix
