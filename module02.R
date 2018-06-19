@@ -2,10 +2,11 @@
 # Facilitated by Renato Vargas (renovargas@gmail.com)
 # Module 02 - The Input-Output model
 
+
 #             To processing sectors
 #                  Agr   Manuf  FinDem  Total Output
 # From
-#   Agriculture    150     200     350          1000
+#   Agriculture    150     500     350          1000
 #   Manufacturing  200     100    1700          2000
 # 
 # Payments sector  650    1400    1100          3150
@@ -26,13 +27,15 @@ Z <- matrix(c(150,500,200,100), nrow = 2, ncol = 2, byrow = TRUE)
 
 # Our vector of total output needed from each sector
 x <- c(1000, 2000)
+x
 
 # Our vector of final demand 
 f <- c(350, 1700)
+f
 
 # A diagonal matrix with the total output by sector
 xhat <- diag(x)
-
+xhat
 
 #  Our technical coefficients (input-output) table.
 A <- Z %*% solve( xhat )
