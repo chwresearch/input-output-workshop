@@ -111,29 +111,33 @@ deltax * xrt
 deltaZ * xrt
 
 
-# Other impacts can be derived from our model
+# Other impacts can be derived as coefficients from our model
 
-e <- c(300, 500)
+eprime <- c(300, 500)
 
 # This only works because of the recycle rule in r and 
 # vectors being dimensionless
-epsilon <- e / x
+epsilon <- eprime / x
 
 # In matrix algebra you would have to transpose e and 
 # postmultiply it by a diagonal version of x
-epsilon <- as.matrix(e) %*% solve(diag(x))
+epsilon <- t(as.matrix(eprime)) %*% solve(diag(x))
 
 # Epsilon is your vector of employment coefficients.
-enew <- diag(epsilon) %*% L %*% fnew
 
-# Suppose we have three types of occupations: engineers, bankers, farmers
+# enewi then your new vector of employment levels
+enew <- diag(c(epsilon)) %*% L %*% fnew
 
-P <- matrix(c(0, 0.6, 0.4, 0.8, 0.2,0), nrow = 3, ncol = 2) # note byrow = FALSE
+# Suppose we have two types of disaggregations: male and female
+Prnames <- c("male", "female")
+
+P <- matrix(c(0.6, 0.4, 0.8, 0.2), nrow = 2, ncol = 2) # note byrow = FALSE
+rownames(P) <- Prnames
 
 # Then expenditures in employment by occupation by sector would be:
 
-Pepsilon <- P %*% diag(epsilon) %*% L %*% fnew
-
-
+Pepsilon <- P %*% diag(c(epsilon)) %*% L %*% fnew
+colnames(Pepsilon) <- c("Employment expend.")
+Pepsilon
 
 

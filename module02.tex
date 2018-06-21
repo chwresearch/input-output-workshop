@@ -1,0 +1,146 @@
+\documentclass[ignorenonframetext,]{beamer}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\newif\ifbibliography
+\hypersetup{
+            pdftitle={Module 02 - The Input Output Model},
+            pdfauthor={Renato Vargas},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+
+% Prevent slide breaks in the middle of a paragraph:
+\widowpenalties 1 10000
+\raggedbottom
+
+\AtBeginPart{
+  \let\insertpartnumber\relax
+  \let\partname\relax
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \let\insertsectionnumber\relax
+    \let\sectionname\relax
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \let\insertsubsectionnumber\relax
+  \let\subsectionname\relax
+  \frame{\subsectionpage}
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+
+\title{Module 02 - The Input Output Model}
+\author{Renato Vargas}
+\date{6/20/2018}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}{Fundamental relationships}
+
+We categorize the economy in \emph{n} sectors. \(x_i\) is the total
+output of sector \(i\) and \(f_i\) is the total demand for sector
+\(i\)'s product. So sales of this sector to other sectors and final
+demand for all n sectors can be expressed as:
+
+\[
+\begin{equation}
+x_j=z_{11}+\cdots+z_{1j}+\cdots+z_{1n}+f_i
+\end{equation}
+\] \[
+\begin{equation}
+x_j=z_{i1}+\cdots+z_{ij}+\cdots+z_{in}+f_i
+\end{equation}
+\] \[
+\begin{equation}
+x_j=z_{n1}+\cdots+z_{nj}+\cdots+z_{nn}+f_i
+\end{equation} 
+\]
+
+\end{frame}
+
+\begin{frame}{Compact representation}
+
+\[\begin{equation} \mathbf{x} = \begin{bmatrix} \begin{array}{c} x_1 \\ \vdots\\ x_n\\ \end{array} \end{bmatrix} \mathbf{Z} = \begin{bmatrix}\begin{array}{ccc} z_{11} & \ldots & z_{1n} \\ \vdots &  \ddots &  \\ z_{n1} &  & z_{nn} \end{array} \end{bmatrix} \mathbf{f}= \begin{bmatrix} \begin{array}{c} f_{1} \\ \vdots  \\ f_{n} \end{array} \end{bmatrix}\end{equation}\]
+
+or
+
+\(\mathbf{x} = \mathbf{Zi} + \mathbf{f}\)
+
+ We need to multiply by the summation column vector \(\mathbf{i}\) of
+1's of dimension n.
+
+\end{frame}
+
+\begin{frame}{Input-output coefficient}
+
+Given \(z_{ij}\) and \(x_j\), for example input of boat fuel (\(i\))
+bought by small-scale fishers (\(j\)) last year and total fishers
+production last year - form the ratio of fuel of fuel to fishers output,
+\(z_{ij}/x_{j}\), (both units in currency) and denote it \(a_{ij}\).
+
+Consequently, direct input (technical) coefficients can be defined as
+
+\[a_{ij} = \frac{z_{ij}}{x_j}\]
+
+This ratio is called a technical coefficient, input-output coefficient,
+or direct input coefficient.
+
+\end{frame}
+
+\begin{frame}{Coefficients for all sectors}
+
+We have that \(\mathbf{x} = \mathbf{Zi} + \mathbf{f}\).
+
+We know that a hat over a vector \(\mathbf{\hat{x}}\) yields a matrix
+with the vector along its diagonal.
+
+We know that \((\mathbf{\hat{x}})(\mathbf{\hat{x}})^{-1} = \mathbf{I}\)
+so it follows that \(\mathbf{\hat{x}}^-1\)
+
+Therefore the n x n matrix of technical coefficients can be represented
+as
+
+\[\mathbf{A} = \mathbf{Z}\mathbf{\hat{x}}^{-1}\]
+
+\end{frame}
+
+\begin{frame}{Example}
+
+\end{frame}
+
+\end{document}

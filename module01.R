@@ -2,6 +2,23 @@
 # Facilitated by Renato Vargas (renovargas@gmail.com)
 # Module 01 - The building blocks of Input-Output analysis
 
+# A matrix is a collection of elements arranged in a grid - a pattern of
+# rows and columns. Matrices are defined in a rectangular way so that they
+# be used to represent systems of linear relations among variables, which
+# is what the structure of an input-output model is.
+
+# The general case is a matrix of m rows and n columns. If m=2 and n=3,
+# using double subscript notation a_ij to denote the element in row i and
+# column j of the matrix, we have
+
+#    A =           [,1] [,2] [,3]
+#             [1,] a_11 a_12 a_13
+#             [2,] a_21 a_22 a_23
+
+# Note: In notation we use square brackets [ ] around all matrix elements.
+
+# Let's create an example matrix
+
 # One way of creating a matrix
 # We create a vector of length 6
 help("c")
@@ -25,10 +42,16 @@ help("as.matrix")
 # 1. Addition and substraction
 
 # Addition
+
+# Addition of matrices, say M + N is accomplished by the simple rule of
+# adding elements in corresponding positions. Only matrices of the same
+# dimensions can be added.
+
 # Let's add a second Matrix
 N <- matrix( c(1,2,3,  3, 2, 1), nrow = 2, ncol = 3, byrow = TRUE)
 
 # And add them (matrices have to have the same dimensions for addition)
+help("dim")
 dim(M)
 
 dim(N)
@@ -45,10 +68,16 @@ M+O
 
 
 # Substraction
+
+# Substraction is defined as subtraction of elements in corresponding
+# positions. Only matrices of exactly the same dimensions can be
+# subtracted.
+
 D <- M - N
 D
 
 # Equality
+
 # Matrices are equal if they have the same dimensions
 # and if elements in corresponding positions are equal.
 
@@ -66,7 +95,12 @@ help("isTRUE")
 isTRUE(M == N)
 
 # The null matrix
-# The equivalent of zero in ordinary algebra
+
+# The equivalent of zero in ordinary algebra. In ordinary algebra, it is
+# a number that when added to (or subtracted from) another number,
+# leaves that number unchanged. In matrix algebra it is a matrix containing
+# only zeros.
+
 Z <- matrix(c(0,0,0,  0, 0, 0), nrow = 2, ncol = 3, byrow = TRUE)
 
 # You can pass a scalar to the matrix() function if you want all 
@@ -74,7 +108,9 @@ Z <- matrix(c(0,0,0,  0, 0, 0), nrow = 2, ncol = 3, byrow = TRUE)
 Z <- matrix( 0, nrow = 2, ncol = 3, byrow = TRUE)
 
 # 2. Multiplication
-# Multiplication of a matrix by a number (scalar)
+# Multiplication of a matrix by a number (scalar). Each element in the
+# matrix is simply multipplid by that number.
+
 Mx2 <- M * 2
 
 # Multiplication of a Matrix by another Matrix
@@ -91,11 +127,16 @@ Mx2 <- M * 2
 # the product matrix, P, will have the same number of rows
 # as M and the same number of columns as Q. 
 
-# order of multiplication makes a difference. In this example,
+#       [,1] [,2] [,3]             [,1] [,2] [,3]
+#  [1,]    2    1    3        [1,]    2    0    4
+#  [2,]    4    6   12        [2,]    1    1    2
+#                             [3,]    3    4    5
+
+# Order of multiplication makes a difference. In this example,
 # the product the other way around, QM, cannot even be found, 
 # since there are three columns in Q but only two rows in M
 
-# Let's create a 3 x 3 matrix Q
+# Let's create the 3 x 3 matrix Q
 Q = matrix(c(2,0,4,  1,1,2,  3,4,5), nrow = 3, ncol = 3, byrow = TRUE)
 
 # The multiplication by hand
@@ -332,7 +373,7 @@ matrix(1, ncol = 2, nrow = 1) %*% M
 
 c(1,1) %*% M
 
-# Cheat versions
+# Cheat versions in R
 colSums(M)
 rowSums(M)
 
