@@ -84,8 +84,3 @@ $$\mathbf{x}=(\mathbf{I}-\mathbf{A})^{-1} \mathbf{f} = \mathbf{L}\mathbf{f}$$
 
 Where $(\mathbf{I}-\mathbf{A})^{-1} \mathbf{f} = \mathbf{L}$ is known as the Leontief inverse or the total requirements matrix.
 
-## Example
-
-```{r pressure}
-```
-

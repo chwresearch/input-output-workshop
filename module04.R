@@ -1,0 +1,73 @@
+# Input-Output Refresher workshop
+# Facilitated by Renato Vargas (renovargas@gmail.com)
+# Module 04 - Impact of demographic change on energy use in a 
+# developing country: an Input-Output approach
+
+# Clean the workspace
+rm(list=ls())
+
+# It is useful to know where you are
+wd <- getwd()
+setwd("/Users/renato/data/input-output-workshop/")
+
+# Load the matrices with the basic Supply and Use data.
+# Note that vectors are loaded as matrices since the csv
+# data already has the desired orientation and that eases
+# calculations later on.
+
+# output
+x <- as.matrix(read.csv("https://raw.githubusercontent.com/renatovargas/energy-demographics/master/data/x.csv", header=FALSE, dec=".", sep=",", comment.char="\""))
+
+# commodity use vector
+q <- as.matrix(read.csv("https://raw.githubusercontent.com/renatovargas/energy-demographics/master/data/q.csv", header=FALSE, dec=".", sep=",", comment.char="\""))
+
+# Use matrix
+U <- as.matrix(read.csv("https://raw.githubusercontent.com/renatovargas/energy-demographics/master/data/U.csv", header=FALSE, dec=".", sep=",", comment.char="\""))
+
+# Make matrix
+V <- as.matrix(read.csv("https://raw.githubusercontent.com/renatovargas/energy-demographics/master/data/V.csv", header=FALSE, dec=".", sep=",", comment.char="\""))
+
+# Final demand X 15 years (corrected for urban/rural)
+corrsim_e <- as.matrix(read.csv("https://raw.githubusercontent.com/renatovargas/energy-demographics/master/data/corrsim_e.csv", header=FALSE, dec=".", sep=",", comment.char="\""))
+
+# Final demand X 15 years (uncorrected for urban/rural)
+uncorrsim_e <- as.matrix(read.csv("https://raw.githubusercontent.com/renatovargas/energy-demographics/master/data/uncorrsim_e.csv", header=FALSE, dec=".", sep=",", comment.char="\""))
+
+# Energy use coefficients ("M_p" in the paper)
+effi_ener <- as.matrix(read.csv("https://raw.githubusercontent.com/renatovargas/energy-demographics/master/data/effi_ener.csv", header=FALSE, dec=".", sep=",", comment.char="\""))
+
+# Since vectors are loaded as matrices, when creating "hat"
+# diagonal vectors we make a half-step to turn them to vectors.
+# Otherwise we obtain weird outcomes.
+
+xv <- as.vector(x)
+qv <- as.vector(q)
+
+# We create the diagonal of industry output and commodity use
+xhat <- diag(xv)
+qhat <- diag(qv)
+
+# Then we create the equivalents of A: B and D.
+
+B = U %*% solve(xhat)
+D = V %*% solve(qhat)
+
+# We also need two identity matrices 
+# of commodity and industry size
+I219 <- diag(219)
+I123 <- diag(123)
+
+# We solve our model for the corrected and uncorrected cases
+# and we obtain simulated output.
+xt1 <- (solve(I123 - (D%*%B)) %*% D) %*% corrsim_e
+xt2 <- (solve(I123 - (D%*%B)) %*% D) %*% uncorrsim_e
+
+# Finally we premultiply that output with the energy coefficients
+# to obtain energy use by energy commodity for 15 years.
+Ep <- effi_ener %*% xt1
+Epb <- effi_ener %*% xt2
+
+# And export it to something Excel can read.
+write.csv(Ep, file = "Ep.csv")
+write.csv(Epb, file = "Epb.csv")
+paste("Check out your files Ep.csv and Epb.csv at: ",wd, " Enjoy!", sep = "")

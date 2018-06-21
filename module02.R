@@ -24,6 +24,9 @@
 # First we create our Input-Output table of interindustry
 # flow of goods
 Z <- matrix(c(150,500,200,100), nrow = 2, ncol = 2, byrow = TRUE)
+ind <- c("Agriculture", "Manufacturing")
+colnames(Z) <- ind 
+rownames(Z) <- ind
 
 # Our vector of total output needed from each sector
 x <- c(1000, 2000)

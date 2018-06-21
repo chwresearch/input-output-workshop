@@ -139,7 +139,23 @@ as
 
 \end{frame}
 
-\begin{frame}{Example}
+\begin{frame}{The input-output model}
+
+Then from our definition of matrices and
+\(\mathbf{A} = \mathbf{Z}\mathbf{\hat{x}}^{-1}\) it follows that:
+
+\[\mathbf{x}=\mathbf{Ax} + \mathbf{f}\]
+
+And from matrix algebra we know that I is an identity matrix so:
+
+\[(\mathbf{I} - \mathbf{A})\mathbf{x} = \mathbf{f}\]
+
+So to solve for x:
+
+\[\mathbf{x}=(\mathbf{I}-\mathbf{A})^{-1} \mathbf{f} = \mathbf{L}\mathbf{f}\]
+
+Where \((\mathbf{I}-\mathbf{A})^{-1} \mathbf{f} = \mathbf{L}\) is known
+as the Leontief inverse or the total requirements matrix.
 
 \end{frame}
 

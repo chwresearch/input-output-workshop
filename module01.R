@@ -21,8 +21,12 @@
 
 # One way of creating a matrix
 # We create a vector of length 6
+
+# Lookup the combine function
 help("c")
+
 c <- c(2, 1, 3, 4, 6, 12)
+c
 
 # We can comment out the return for readability of our code.
 c <- c(2, 1,  3, #
@@ -32,6 +36,8 @@ c <- c(2, 1,  3, #
 help("matrix")
 
 M <- matrix(c, nrow = 2, ncol = 3, byrow = TRUE)
+
+M <- matrix( c, nrow = 2,ncol = 3, byrow = TRUE ) 
 # And we take a look at it
 M
 
@@ -48,7 +54,8 @@ help("as.matrix")
 # dimensions can be added.
 
 # Let's add a second Matrix
-N <- matrix( c(1,2,3,  3, 2, 1), nrow = 2, ncol = 3, byrow = TRUE)
+N <- matrix(    c(1,2,3,3,2,1)    ,   nrow = 2   , ncol = 3 , byrow = TRUE)
+N
 
 # And add them (matrices have to have the same dimensions for addition)
 help("dim")
@@ -91,8 +98,7 @@ M == N
 # Check for equality
 
 help("isTRUE")
-
-isTRUE(M == N)
+isTRUE(   M == N   )
 
 # The null matrix
 
@@ -101,8 +107,8 @@ isTRUE(M == N)
 # leaves that number unchanged. In matrix algebra it is a matrix containing
 # only zeros.
 
-Z <- matrix(c(0,0,0,  0, 0, 0), nrow = 2, ncol = 3, byrow = TRUE)
-
+Z <- matrix(     c(0,0,0,  0, 0, 0)      , nrow = 2, ncol = 3, byrow = TRUE)
+Z
 # You can pass a scalar to the matrix() function if you want all 
 # cells to be the same.
 Z <- matrix( 0, nrow = 2, ncol = 3, byrow = TRUE)
@@ -111,7 +117,11 @@ Z <- matrix( 0, nrow = 2, ncol = 3, byrow = TRUE)
 # Multiplication of a matrix by a number (scalar). Each element in the
 # matrix is simply multipplid by that number.
 
-Mx2 <- M * 2
+M
+Mx2 <- M*2
+
+# Remove an object from the environment
+rm(Mx2)
 
 # Multiplication of a Matrix by another Matrix
 # Unintuitive but completely logical according to notation
@@ -137,7 +147,7 @@ Mx2 <- M * 2
 # since there are three columns in Q but only two rows in M
 
 # Let's create the 3 x 3 matrix Q
-Q = matrix(c(2,0,4,  1,1,2,  3,4,5), nrow = 3, ncol = 3, byrow = TRUE)
+Q <- matrix(c(2,0,4,  1,1,2,  3,4,5), nrow = 3, ncol = 3, byrow = TRUE)
 
 # The multiplication by hand
 
@@ -145,8 +155,8 @@ c( (2*2 + 1*1 + 3*3 ), (2*0 + 1*1 + 3*4 ), (2*4 + 1*2 + 3*5 ), #
    (4*2 + 6*1 + 12*3), (4*0 + 6*1 + 12*4), (4*4 + 6*2 + 12*5))
 
 # Multiplication
-P = M %*% Q
-
+P <- M %*% Q
+P
 
 # The Identity Matrix
 # Similar to ordinary algebra, an identity matrix is one that leaves
@@ -156,6 +166,8 @@ P = M %*% Q
 # M =          [,1] [,2] [,3]
 #         [1,]    2    1    3
 #         [2,]    4    6   12
+
+M %*% matrix( 1, nrow = 3, ncol = 3)
 
 # By what matrix could M be postmultiplied so it remains unchanges.
 # Hint: A matrix of ones is not a correct answer, because of the
@@ -172,6 +184,8 @@ M %*% I
 # The result is M, but what if M has dimensions in the thousands of
 # and rows? We don't need to type them all. We get the dimensions of M
 dim(M)
+dim(M)[1]
+dim(M)[2]
 
 # > dim(M)
 # [1] 2 3
@@ -184,12 +198,15 @@ I3 <-  diag(3)
 
 # Let try a bigger one:
 I10 <- diag(10)
+I10
+
+# Get the right identity matrix dimension automagically
+diag(   dim(M)[2]   )
+
 
 # By which matrix should we "pre"-multiply M so that it remains the same.
 
-I2 <- diag(2)
-
-I2 %*% M
+diag( dim(M)[1] ) %*% M
 
 # 3. Matrix operations: Transposition
 
@@ -199,6 +216,7 @@ I2 %*% M
 # becomes column i of M^t
 
 Mt <- t(M)
+t(M)
 
 # In matrix algebra an n-element column vector is an n-element row vector.
 # In R this is somewhat irrelevant as vectors are dimensionless and you can
@@ -239,6 +257,8 @@ t( t(c) )
 # Let's put our known elements into R
 A <- matrix(c(2,1,5,3), nrow = 2, ncol = 2, byrow = TRUE)
 b <- matrix(c(10, 26), nrow = 2, ncol = 1, byrow = TRUE)
+A
+b
 
 # In ordinary algebra, if we have something like:
 
@@ -273,13 +293,15 @@ b <- matrix(c(10, 26), nrow = 2, ncol = 1, byrow = TRUE)
 solve(A)
 
 # Some matrices where cross-products are zero do not have inverses like:
-C = matrix(c(2,4,6,12), nrow = 2, ncol = 2)
+C <- matrix(c(2,4,6,12), nrow = 2, ncol = 2)
 solve(C)
 
 # It's the equivalent of trying to divide by zero in ordinary algebra.
 
-# Going back to to our example: x = A^-1 b 
-x = solve(A) %*% b
+
+# Going back to to our example: 
+#                   x = A^-1 b 
+x <- solve(A) %*% b
 x
 
 
@@ -364,7 +386,7 @@ invQhat %*% Qhat
 #     Total     6    7   15
 
 # Row sums
-M %*% matrix(1, ncol = 1, nrow = 3)
+M %*% matrix(1, nrow = 3, ncol = 1)
 
 M %*% c(1,1,1)
 

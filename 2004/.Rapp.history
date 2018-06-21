@@ -1,0 +1,1754 @@
+getwd()
+source("/Users/renato/Documents/02Study/01_RM-RUG/Thesis/Data/wiodmatrices/2004/reshapeFD.R")
+getwd()
+rm(list=ls())#
+setwd(getwd())#
+#
+x_nozeros <- as.matrix(read.table("x_anozeros.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))#
+x <- as.matrix(read.table("xa.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))#
+Z <- as.matrix(read.table("Za.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))#
+# Disagregated final demand per region.#
+FD <- as.matrix(read.table("aggFDa.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))#
+xv <- as.vector(x_nozeros)#
+xhat <- diag(xv)#
+A <- as.matrix(Z %*% solve(xhat))#
+I <- as.matrix(diag(1435))#
+L <- solve(I-A) #
+f <- as.matrix(x - ( Z %*% matrix(1,1435,1)))#
+x1 <- L %*% f#
+#
+# This calibrates the model#
+xdiff <- (x1-x)#
+xcomp <- cbind(x,x1,xdiff)#
+write.csv(xcomp, file = "/Users/renato/Documents/02Study/01_RM-RUG/Thesis/Data/wiodmatrices/xa_comp.csv", fileEncoding = "macroman")#
+#
+# To obtain H#
+# We use the output vector with no zeros#
+#
+# We extract the necessary rows by making a list of them.#
+# A sequence that starts in 33 and ends in 1433 with interv-#
+# als of 35.#
+clist <- c(seq(33, 1433, 35))#
+#
+# ...and create a matrix of them by pulling them out of Z#
+hexp <- as.matrix(Z[c(clist), ])
+rm(list=ls())#
+setwd(getwd())#
+#
+x_nozeros <- as.matrix(read.table("xa_nozeros.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))#
+x <- as.matrix(read.table("xa.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))#
+Z <- as.matrix(read.table("Za.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))#
+# Disagregated final demand per region.#
+FD <- as.matrix(read.table("aggFDa.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))#
+xv <- as.vector(x_nozeros)#
+xhat <- diag(xv)#
+A <- as.matrix(Z %*% solve(xhat))#
+I <- as.matrix(diag(1435))#
+L <- solve(I-A) #
+f <- as.matrix(x - ( Z %*% matrix(1,1435,1)))#
+x1 <- L %*% f#
+#
+# This calibrates the model#
+xdiff <- (x1-x)#
+xcomp <- cbind(x,x1,xdiff)#
+write.csv(xcomp, file = "/Users/renato/Documents/02Study/01_RM-RUG/Thesis/Data/wiodmatrices/xa_comp.csv", fileEncoding = "macroman")#
+#
+# To obtain H#
+# We use the output vector with no zeros#
+#
+# We extract the necessary rows by making a list of them.#
+# A sequence that starts in 33 and ends in 1433 with interv-#
+# als of 35.#
+clist <- c(seq(33, 1433, 35))#
+#
+# ...and create a matrix of them by pulling them out of Z#
+hexp <- as.matrix(Z[c(clist), ])
+c <- as.matrix(as.matrix(colSums(hexp)) / as.matrix(x_nozeros))
+dim(c)
+head(c)
+c <- as.matrix(as.matrix(colSums(hexp)) / as.matrix(x_nozeros))
+H <- as.matrix(as.matrix(diag(c))%*%L)
+H <- as.matrix(diag(as.vector(c))%*%L)
+dim(H)
+PR <- as.matrix(H %*% diag(colSums(FD)))
+FD <- as.matrix(read.table("aggFDa.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))
+aggFD <- as.matrix(read.table("aggFDa.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))
+aggFD <- as.matrix(read.csv("aggFDa.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))
+FD <- as.matrix(read.table("aggFDa.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))
+getwd()
+FD <- as.matrix(read.csv("aggFDa.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))
+aggFD <- read.table("aggFDa.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1)
+aggFD <- read.table("/Users/renato/Documents/02Study/01_RM-RUG/Thesis/Data/wiodmatrices/2004/aggFDa.csv")
+FD <- as.matrix(read.table("/Users/renato/Documents/02Study/01_RM-RUG/Thesis/Data/wiodmatrices/2004/aggFDa.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))
+FD <- as.matrix(read.table("/Users/renato/Documents/02Study/01_RM-RUG/Thesis/Data/wiodmatrices/2004/aggFDa.csv", header = TRUE, dec = ".", sep=",", comment.char="\""))
+FD <- as.matrix(read.table("/Users/renato/Documents/02Study/01_RM-RUG/Thesis/Data/wiodmatrices/2004/aggFDa.csv", header = TRUE, dec = ".", sep=",", comment.char="\""), row.names = 1)
+FD <- as.matrix(read.table("/Users/renato/Documents/02Study/01_RM-RUG/Thesis/Data/wiodmatrices/2004/aggFDa.csv"))
+FD <- as.matrix(read.table("aggFDa.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))
+FD <- as.matrix(read.table("aggFDa.csv", header = TRUE, dec = ".", sep=",", comment.char="\""))
+FD <- as.matrix(read.table("aggFDa.csv"), header = TRUE, dec = ".", sep=",", comment.char="\""))
+FD <- as.matrix(read.table("aggFDa.csv"), header = TRUE, dec = ".", sep=",", comment.char="\"", row.names=1)
+FD[c(1:2), c(1:2)]
+FD <- read.table("aggFDa.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names=1)
+FD <- read.table("aggFDa.csv")
+dim(FD)
+FD <- read.table("aggFDa.csv", header= TRUE, dec=".", row.names=1)
+dim(FD)
+FD <- as.matrix(read.table("aggFDa.csv", header= TRUE, dec=".", row.names=1))
+dim(FD)
+FD[c(1:3), c(1:3)]
+FD[c(1:3),]
+FD <- as.matrix(read.table("aggFDa.csv", header= TRUE, dec=".", sep",", row.names=1))
+FD <- as.matrix(read.table("aggFDa.csv", header= TRUE, dec=".", sep=",", row.names=1))
+dim(FD)
+FD[c(1:3), c(1:3)]
+H <- as.matrix(diag(as.vector(c))%*%L)#
+#
+PR <- as.matrix(H %*% diag(colSums(FD)))
+head(c)
+dim(H)
+PR <- as.matrix(H %*% diag(rowSums(FD)))
+dim(PR)
+FDR <- as.matrix(H %*% FD)
+FDR
+dim(FDR)
+source("/var/folders/2b/4w82y3vn12s058t_4kzrlhd40000gn/T//RtmpGCqZrQ/filee5e10e3bfac")#
+unlink("/var/folders/2b/4w82y3vn12s058t_4kzrlhd40000gn/T//RtmpGCqZrQ/filee5e10e3bfac")
+getwd()
+01_Exercise.R#
+##
+# Estimate direct and indirect health expenditure requirements of all regions#
+# Calculate health responsibility balances#
+rm(list=ls())#
+setwd(getwd())#
+#
+x_nozeros <- as.matrix(read.table("xa_nozeros.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))#
+x <- as.matrix(read.table("xa.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))#
+Z <- as.matrix(read.table("Za.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))#
+# Disagregated final demand per region.#
+FD <- as.matrix(read.table("aggFDa.csv", header= TRUE, dec=".", sep=",", row.names=1))#
+#
+xv <- as.vector(x_nozeros)#
+xhat <- diag(xv)#
+A <- as.matrix(Z %*% solve(xhat))#
+I <- as.matrix(diag(1435))#
+L <- solve(I-A) #
+f <- as.matrix(x - ( Z %*% matrix(1,1435,1)))#
+x1 <- L %*% f#
+#
+# This calibrates the model#
+xdiff <- (x1-x)#
+xcomp <- cbind(x,x1,xdiff)#
+write.csv(xcomp, file = "/Users/renato/Documents/02Study/01_RM-RUG/Thesis/Data/wiodmatrices/xa_comp.csv", fileEncoding = "macroman")#
+#
+# To obtain H#
+# We use the output vector with no zeros#
+#
+# We extract the necessary rows by making a list of them.#
+# A sequence that starts in 33 and ends in 1433 with interv-#
+# als of 35.#
+clist <- c(seq(33, 1433, 35))#
+#
+# ...and create a matrix of them by pulling them out of Z#
+hexp <- as.matrix(Z[c(clist), ])#
+#
+# We add all the countries into one line and divide that line by the output#
+# element-wise#
+c <- as.matrix(as.matrix(colSums(hexp)) / as.matrix(x_nozeros))#
+#
+# On with the calculations, we multiply a diagonal vector of it by L#
+#
+H <- as.matrix(diag(as.vector(c))%*%L)#
+#
+PR <- as.matrix(H %*% diag(rowSums(FD)))#
+#
+write.csv(R, file = "PRa.csv", fileEncoding = "macroman")#
+#
+FDR <- as.matrix(H %*% FD)#
+#
+write.csv(R, file = "FDa.csvRa.csv", fileEncoding = "macroman")#
+# rm(list=ls())
+source("/Users/renato/Documents/02Study/01_RM-RUG/Thesis/Data/wiodmatrices/2004/01_Exercise.R")
+dim(FDR)
+dim(PRa)
+dim(PR)
+matrix(1,1435,1)
+as.vector(matrix(1,1435,1))
+length(as.vector(matrix(1,1435,1)))
+i <- as.vector(matrix(1,1435,1))
+prodres <- PR%*%i - i%*%PR
+as.matrix(i%*%PR)
+as.matrix(PR%*%i)
+prodres <- as.matrix(PR%*%i) - as.matrix(i%*%PR)
+dim(as.matrix(i%*%PR))
+prodres <- as.matrix(PR%*%i) - t(as.matrix(i%*%PR))
+head(prodres)
+prodres <- as.matrix(rowSums(PR)) - t(as.matrix(colSums(PR)))
+prodres <- as.matrix(rowSums(PR)) - as.matrix(colSums(PR))
+head(prodres)
+rowSums(PR)
+as.matrix(rowSums(PR))
+help(matrix)
+dimnames(FD)
+dimnames(x)
+prodres <- matirx(as.matrix(rowSums(PR)) - as.matrix(colSums(PR)), dimnames= dimnames(x))
+prodres <- matrix(as.matrix(rowSums(PR)) - as.matrix(colSums(PR)), dimnames= dimnames(x))
+dim(prodres)
+head(prodres)
+mprodres <- melt(prodres, id="1")
+head(mprodres)
+mprodres$X1 <- as.character(mprodres$X1)
+mprodres$X2 <- as.character(mprodres$X2)
+sellRegion <- strsplit((mprodres$X1), "\_")
+sellRegion <- strsplit((mprodres$X1), "\\_")
+selling <- strsplit((mprodres$X1), "\\_")
+library(reshape)#
+mprodres <- melt(prodres, id="1")#
+mprodres$X1 <- as.character(mprodres$X1)#
+mprodres$X2 <- as.character(mprodres$X2)#
+selling <- strsplit((mprodres$X1), "\\_")#
+sellRegion <- sapply(selling, "[", 1)#
+sellSector <- sapply(selling, "[", 2)#
+mprodres <- cbind(sellRegion, sellSector, mprodres)#
+# Get rid of vars from melt#
+myvars <- names(mprodres) %in% c("X1", "X2")#
+mprodres <- mprodres[!myvars]#
+#
+regPRagg <- read.table("regPRagg.csv", header = TRUE, dec = ".", sep=",", comment.char="", stringsAsFactors=FALSE )#
+# ...and sectors#
+secPRagg <- read.table("secPRagg.csv", header = TRUE, dec = ".", sep=",", comment.char="", stringsAsFactors=FALSE)#
+#
+aggPR <- mprodres#
+#
+aggPR <- with(c(regPRagg,secPRagg,aggPR), data.frame(sellRegion = rbName[match(sellRegion,raCode)], sellSector = sbCode[match(sellSector,saCode)], value))#
+#
+# We order by selling region and then by sector#
+aggPR <- aggPR[order(sellRegion,sellSector),]#
+#
+# We then concatenate two columns of strings:#
+aggPR$newSell <- paste(aggPR$sellRegion, aggPR$sellSector, sep="_")#
+# aggPR$newPurch <- paste(aggPR$purchRegion, aggPR$purchSector, sep="_")#
+# ...drop what's not needed and rearrange the data.frame#
+aggmZ <- aggmZ[c("newSell", "value")]#
+#
+# And cast#
+aggPR <- as.matrix(cast(aggmZ, newSell~value, sum), row.names="1")#
+write.csv(aggPR, file = "aggPR.csv", fileEncoding = "macroman")
+library(reshape)#
+mprodres <- melt(prodres, id="1")#
+mprodres$X1 <- as.character(mprodres$X1)#
+mprodres$X2 <- as.character(mprodres$X2)#
+selling <- strsplit((mprodres$X1), "\\_")#
+sellRegion <- sapply(selling, "[", 1)#
+sellSector <- sapply(selling, "[", 2)#
+mprodres <- cbind(sellRegion, sellSector, mprodres)#
+# Get rid of vars from melt#
+myvars <- names(mprodres) %in% c("X1", "X2")#
+mprodres <- mprodres[!myvars]#
+#
+regPRagg <- read.table("regPRagg.csv", header = TRUE, dec = ".", sep=",", comment.char="", stringsAsFactors=FALSE )#
+# ...and sectors#
+secPRagg <- read.table("secPRagg.csv", header = TRUE, dec = ".", sep=",", comment.char="", stringsAsFactors=FALSE)#
+#
+aggPR <- mprodres#
+#
+aggPR <- with(c(regPRagg,secPRagg,aggPR), data.frame(sellRegion = rbName[match(sellRegion,raCode)], sellSector = sbCode[match(sellSector,saCode)], value))#
+#
+# We order by selling region and then by sector#
+aggPR <- aggPR[order(sellRegion,sellSector),]#
+#
+# We then concatenate two columns of strings:#
+aggPR$newSell <- paste(aggPR$sellRegion, aggPR$sellSector, sep="_")#
+# aggPR$newPurch <- paste(aggPR$purchRegion, aggPR$purchSector, sep="_")#
+# ...drop what's not needed and rearrange the data.frame#
+aggPR <- aggPR[c("newSell", "value")]#
+#
+# And cast#
+aggPR <- as.matrix(cast(aggmZ, newSell~value, sum), row.names="1")#
+write.csv(aggPR, file = "aggPR.csv", fileEncoding = "macroman")
+library(reshape)#
+mprodres <- melt(prodres, id="1")#
+mprodres$X1 <- as.character(mprodres$X1)#
+mprodres$X2 <- as.character(mprodres$X2)#
+selling <- strsplit((mprodres$X1), "\\_")#
+sellRegion <- sapply(selling, "[", 1)#
+sellSector <- sapply(selling, "[", 2)#
+mprodres <- cbind(sellRegion, sellSector, mprodres)#
+# Get rid of vars from melt#
+myvars <- names(mprodres) %in% c("X1", "X2")#
+mprodres <- mprodres[!myvars]#
+#
+regPRagg <- read.table("regPRagg.csv", header = TRUE, dec = ".", sep=",", comment.char="", stringsAsFactors=FALSE )#
+# ...and sectors#
+secPRagg <- read.table("secPRagg.csv", header = TRUE, dec = ".", sep=",", comment.char="", stringsAsFactors=FALSE)#
+#
+aggPR <- mprodres#
+#
+aggPR <- with(c(regPRagg,secPRagg,aggPR), data.frame(sellRegion = rbName[match(sellRegion,raCode)], sellSector = sbCode[match(sellSector,saCode)], value))#
+#
+# We order by selling region and then by sector#
+aggPR <- aggPR[order(sellRegion,sellSector),]#
+#
+# We then concatenate two columns of strings:#
+aggPR$newSell <- paste(aggPR$sellRegion, aggPR$sellSector, sep="_")#
+# aggPR$newPurch <- paste(aggPR$purchRegion, aggPR$purchSector, sep="_")#
+# ...drop what's not needed and rearrange the data.frame#
+aggPR <- aggPR[c("newSell", "value")]#
+#
+# And cast#
+aggPR <- as.matrix(cast(aggPR, newSell~value, sum), row.names="1")#
+write.csv(aggPR, file = "aggPR.csv", fileEncoding = "macroman")
+We aggregate by country to calculate responsibilities (see reshape.R).#
+library(reshape)#
+mprodres <- melt(prodres, id="1")#
+mprodres$X1 <- as.character(mprodres$X1)#
+mprodres$X2 <- as.character(mprodres$X2)#
+selling <- strsplit((mprodres$X1), "\\_")#
+sellRegion <- sapply(selling, "[", 1)#
+sellSector <- sapply(selling, "[", 2)#
+mprodres <- cbind(sellRegion, sellSector, mprodres)#
+# Get rid of vars from melt#
+myvars <- names(mprodres) %in% c("X1", "X2", "sellSector")#
+mprodres <- mprodres[!myvars]#
+#
+aggPR <- mprodres#
+#
+# We order by selling region and then by sector#
+aggPR <- aggPR[order(sellRegion),]#
+#
+# ...drop what's not needed and rearrange the data.frame#
+aggPR <- aggPR[c("sellRegion", "value")]#
+#
+# And cast#
+aggPR <- as.matrix(cast(aggPR, newSell~value, sum), row.names="1")
+library(reshape)#
+mprodres <- melt(prodres, id="1")#
+mprodres$X1 <- as.character(mprodres$X1)#
+mprodres$X2 <- as.character(mprodres$X2)#
+selling <- strsplit((mprodres$X1), "\\_")#
+sellRegion <- sapply(selling, "[", 1)#
+sellSector <- sapply(selling, "[", 2)#
+mprodres <- cbind(sellRegion, sellSector, mprodres)#
+# Get rid of vars from melt#
+myvars <- names(mprodres) %in% c("X1", "X2", "sellSector")#
+mprodres <- mprodres[!myvars]#
+#
+aggPR <- mprodres#
+#
+# We order by selling region and then by sector#
+aggPR <- aggPR[order(sellRegion),]#
+#
+# ...drop what's not needed and rearrange the data.frame#
+aggPR <- aggPR[c("sellRegion", "value")]#
+#
+# And cast#
+aggPR <- as.matrix(cast(aggPR, sellRegion~value, sum), row.names="1")
+aggPR
+dim(aggPR)
+aggPR <- as.matrix(cast(aggPR, sellRegion, sum), row.names="1")
+aggPR <- as.matrix(cast(aggPR, sum), row.names="1")
+library(reshape)#
+mprodres <- melt(prodres, id="1")#
+mprodres$X1 <- as.character(mprodres$X1)#
+mprodres$X2 <- as.character(mprodres$X2)#
+selling <- strsplit((mprodres$X1), "\\_")#
+sellRegion <- sapply(selling, "[", 1)#
+sellSector <- sapply(selling, "[", 2)#
+mprodres <- cbind(sellRegion, sellSector, mprodres)#
+# Get rid of vars from melt#
+myvars <- names(mprodres) %in% c("X1", "X2")#
+mprodres <- mprodres[!myvars]#
+#
+aggPR <- mprodres#
+#
+# We order by selling region and then by sector#
+aggPR <- aggPR[order(sellRegion, sellSector),]#
+#
+# ...drop what's not needed and rearrange the data.frame#
+aggPR <- aggPR[c("sellRegion", "value")]#
+#
+# And cast#
+aggPR <- as.matrix(cast(aggPR, sellRegion~sellSector, sum), row.names="1")
+library(reshape)#
+mprodres <- melt(prodres, id="1")#
+mprodres$X1 <- as.character(mprodres$X1)#
+mprodres$X2 <- as.character(mprodres$X2)#
+selling <- strsplit((mprodres$X1), "\\_")#
+sellRegion <- sapply(selling, "[", 1)#
+sellSector <- sapply(selling, "[", 2)#
+mprodres <- cbind(sellRegion, sellSector, mprodres)#
+# Get rid of vars from melt#
+myvars <- names(mprodres) %in% c("X1", "X2")#
+mprodres <- mprodres[!myvars]#
+#
+aggPR <- mprodres#
+#
+# We order by selling region and then by sector#
+aggPR <- aggPR[order(sellRegion, sellSector),]#
+#
+# ...drop what's not needed and rearrange the data.frame#
+aggPR <- aggPR[c("sellRegion", "sellSector" "value")]#
+#
+# And cast#
+aggPR <- as.matrix(cast(aggPR, sellRegion~sellSector, sum), row.names="1")
+dim(aggPR)
+aggPR
+library(reshape)#
+mprodres <- melt(prodres, id="1")#
+mprodres$X1 <- as.character(mprodres$X1)#
+mprodres$X2 <- as.character(mprodres$X2)#
+selling <- strsplit((mprodres$X1), "\\_")#
+purchasing <- mprodres$X2#
+sellRegion <- sapply(selling, "[", 1)#
+sellSector <- sapply(selling, "[", 2)#
+mprodres <- cbind(sellRegion, sellSector, purchasing, mprodres)#
+# Get rid of vars from melt#
+myvars <- names(mprodres) %in% c("X1", "X2", "sellSector")#
+mprodres <- mprodres[!myvars]#
+#
+aggPR <- mprodres#
+#
+# We order by selling region and then by sector#
+aggPR <- aggPR[order(sellRegion, sellSector),]#
+#
+# ...drop what's not needed and rearrange the data.frame#
+aggPR <- aggPR[c("sellRegion", "purchasing", "value")]#
+#
+# And cast#
+aggPR <- as.matrix(cast(aggPR, sellRegion~purchasing, sum), row.names="1")
+library(reshape)#
+mprodres <- melt(prodres, id="1")#
+mprodres$X1 <- as.character(mprodres$X1)#
+mprodres$X2 <- as.character(mprodres$X2)#
+selling <- strsplit((mprodres$X1), "\\_")#
+sellRegion <- sapply(selling, "[", 1)#
+sellSector <- sapply(selling, "[", 2)#
+mprodres <- cbind(sellRegion, sellSector, mprodres)#
+# Get rid of vars from melt#
+myvars <- names(mprodres) %in% c("X1")#
+mprodres <- mprodres[!myvars]#
+#
+aggPR <- mprodres#
+#
+# We order by selling region and then by sector#
+aggPR <- aggPR[order(sellRegion, sellSector),]#
+#
+# ...drop what's not needed and rearrange the data.frame#
+aggPR <- aggPR[c("sellRegion", "sellSector", "X2" "value")]#
+#
+# And cast#
+aggPR <- as.matrix(cast(aggPR, sellRegion~X2, sum), row.names="1")
+library(reshape)#
+mprodres <- melt(prodres, id="1")#
+mprodres$X1 <- as.character(mprodres$X1)#
+mprodres$X2 <- as.character(mprodres$X2)#
+selling <- strsplit((mprodres$X1), "\\_")#
+sellRegion <- sapply(selling, "[", 1)#
+sellSector <- sapply(selling, "[", 2)#
+mprodres <- cbind(sellRegion, sellSector, mprodres)#
+# Get rid of vars from melt#
+myvars <- names(mprodres) %in% c("X1")#
+mprodres <- mprodres[!myvars]#
+#
+aggPR <- mprodres#
+#
+# We order by selling region and then by sector#
+aggPR <- aggPR[order(sellRegion, sellSector),]#
+#
+# ...drop what's not needed and rearrange the data.frame#
+aggPR <- aggPR[c("sellRegion", "X2", "value")]#
+#
+# And cast#
+aggPR <- as.matrix(cast(aggPR, sellRegion~X2, sum), row.names="1")
+aggPR
+head(aggPR)
+class(aggPR$sellRegion)
+library(reshape)#
+mprodres <- melt(prodres, id="1")#
+mprodres$X1 <- as.character(mprodres$X1)#
+mprodres$X2 <- as.character(mprodres$X2)#
+selling <- strsplit((mprodres$X1), "\\_")#
+sellRegion <- sapply(selling, "[", 1)#
+sellSector <- sapply(selling, "[", 2)#
+mprodres <- cbind(sellRegion, sellSector, mprodres)#
+# Get rid of vars from melt#
+myvars <- names(mprodres) %in% c("X1")#
+mprodres <- mprodres[!myvars]#
+#
+aggPR <- mprodres#
+#
+# We order by selling region and then by sector#
+aggPR <- aggPR[order(sellRegion, sellSector),]#
+#
+# ...drop what's not needed and rearrange the data.frame#
+aggPR <- aggPR[c("sellRegion", "X2", "value")]#
+#
+aggPR$sellRegion <- as.character(aggPR$sellRegion)#
+aggPR$X2 <- as.character(aggPR$X2)#
+#
+# And cast#
+aggPR <- as.matrix(cast(aggPR, sellRegion~X2, sum), row.names="1")
+class(aggPR$value)
+help(table)
+table(aggPR)
+source("/Users/renato/Documents/02Study/01_RM-RUG/Thesis/Data/wiodmatrices/2004/01_Exercise.R")
+And its column sum is the actual region responsibility#
+fdres <- as.matrix(colSums(FDR))#
+#
+write.csv(FDR, file = "FDRa.csv", fileEncoding = "macroman")#
+write.csv(fdres, file = "fdres.csv", fileEncoding = "macroman")
+FDR
+prodres <- matrix(as.matrix(rowSums(PR)) - as.matrix(colSums(PR)), dimnames= dimnames(x))#
+#
+prodres2 <- matrix(as.matrix(rowSums(PR)) - as.matrix(diag(PR)), dimnames= dimnames(x))#
+#
+prodres3 <- matrix(as.matrix(rowSums(PR)), dimnames= dimnames(x))
+write.csv(PR, file = "PRa.csv", fileEncoding = "macroman")#
+write.csv(prodres, file = "prodres.csv", fileEncoding = "macroman")#
+write.csv(prodres2, file = "prodres2.csv", fileEncoding = "macroman")#
+write.csv(prodres3, file = "prodres3.csv", fileEncoding = "macroman")
+source("/Users/renato/Documents/02Study/01_RM-RUG/Thesis/Data/wiodmatrices/2004/reshape02.R")
+reshape.R#
+# Aggregate WIOD matrices to different region, sector or both#
+# classifications depending on study or presentation needs.#
+#
+# Renato Vargas#
+# University of Groningen#
+#
+# Preamble:#
+rm(list=ls())#
+setwd(getwd())#
+#
+# First we import the WIOD matrix of input-output relations Z.#
+# We make sure to concatenate the country code and the industry#
+# code in one single variable so that it is easier to manipulate#
+# later. However, before doing that, we change the industry#
+# codes that read: "c1, c2, c3... c35" for codes that order prop-#
+# erly, such as "c01, c02, c03...c33". The reason for this is that#
+# once we manipulate the data, we would like to have it ordered in#
+# the same manner that the WIOD is and for the computer the first#
+# method will result in "c1, c10, c11...c2, c20, c21..., etc.)#
+#
+# Since we are going to have different aggregation levels of#
+# country and industry I will create a unique code that will#
+# identify every pair of country (region) and sector.#
+#
+# Regions will be denoted by "r" and a letter (a, b, c...), #
+# corresponding to the current aggregation (e.g. "rc"). Sectors#
+# will be denoted by "s" and also a letter for the sectoral#
+# classification aggregation for the specific excercise.#
+# individual regions (countries) and sectors will be identified, #
+# respectively, with a two digit correlative number, #
+# specific to each classification aggregation. An example follows:#
+#
+#        ra03_sa04   stands for:#
+#        r            a                  03       #
+#      region     aplication      region correlative#
+#                 classific.      number#
+#                 aggregation#
+#       (r)       (a, b, c...)    (1, 2..., r)#
+#
+#                       _#
+#                   separator#
+#
+#        s            a                  04       #
+#      sector     aplication      sector correlative#
+#                 classific.      number#
+#                 aggregation#
+#       (r)       (a, b, c...)    (1, 2..., s)#
+#
+# Which identifies the fourth sector of the third region in the#
+# first classification aggregation (the original data) "a". In#
+# this case, it corresponds to "Textiles and Textile Products" in#
+# Belgium (BEL).#
+#
+# The intention behind this is to create a correspondence table#
+# which will allow to aggregate from one level of analysis to #
+# another, since classifications differ in detail in the data#
+# available for the three approaches described in the paper. #
+#
+# We import the data as a matrix and make sure that the row names#
+# and column names are recognized as such: "header = TRUE" and #
+# row.names = 1.#
+#
+Z <- as.matrix(read.table("Za.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))#
+#
+# Then we have to create a flat file for manipulation#
+# from the WIOD matrix. The process is called "melt" the #
+# data, and hence the command...#
+#
+library(reshape)#
+mZ <- melt(Z, id="1")#
+#
+# This will yield a ("i" * "j") times 3 data frame (not matrix)#
+# with the first column being the selling sector unique identifier#
+# the second column being the unique sector buyer identifier and#
+# the third column holding the value of the transaction.#
+#
+#         X1     X2        value#
+# 1   AUS_c1 AUS_c1 3107.0305010#
+# 2   AUS_c2 AUS_c1   28.9596573#
+# 3   AUS_c3 AUS_c1  895.4561751#
+# 4   AUS_c4 AUS_c1   28.2739378#
+# 5   AUS_c5 AUS_c1    0.6225808#
+# 6   AUS_c6 AUS_c1   20.0918045#
+# ...#
+# In the WIOD case 1,435 x 1435 = 2,059,225 observations#
+#
+# With the data in this format we break down X1 and X2 in its#
+# components so that we can recode and aggregate accordingly.#
+# This operation will yield some more columns.#
+#
+# In spite of all my attempts for X1 and X2 not to be factors,#
+# but remain strings, melt apparently still converts it to factors.#
+# (Or maybe somewhere else) Luckily we only need to convert#
+# back these two to class "character." Otherwise, we can't split#
+# them. I give up, couldn't find an elegant way to do it.#
+#
+mZ$X1 <- as.character(mZ$X1)#
+mZ$X2 <- as.character(mZ$X2)#
+selling <- strsplit((mZ$X1), "\\_")#
+purchasing <- strsplit((mZ$X2), "\\_")#
+#
+# We extract the first element for sellRegion#
+# and the second element for sell Sector.#
+# We do the same for purchasing.#
+#
+sellRegion <- sapply(selling, "[", 1)#
+sellSector <-sapply(selling, "[", 2)#
+#
+purchRegion <- sapply(purchasing, "[", 1)#
+purchSector <-sapply(purchasing, "[", 2)#
+#
+mZ <- cbind(sellRegion, sellSector, purchRegion, purchSector, mZ)#
+#
+# We get rid of the variables from the "melt" command.#
+myvars <-names(mZ) %in% c("X1", "X2")#
+mZ <- mZ[!myvars]#
+#
+# We load the equivalences tables#
+# To aggregate regions#
+# These are prepared by matching one time regions to "new regions"#
+# and sectors to "new sectors" independently, which gives this#
+# program the flexibility we need to come up with different#
+# levels of aggregation for calculation, summary, or graphic#
+# display purposes.#
+#
+regagg <- read.table("regagg02.csv", header = TRUE, dec = ".", sep=",", comment.char="", stringsAsFactors=FALSE )#
+# ...and sectors#
+secagg <- read.table("secagg02.csv", header = TRUE, dec = ".", sep=",", comment.char="", stringsAsFactors=FALSE)#
+#
+# And code to do the replacement once we have the equivalences#
+# table:#
+#
+aggmZ <- mZ#
+#
+# The following code is a little complicated and comes from#
+# "http://stackoverflow.com/questions/6543798/r-how-to-do-fastest-replacement-in-r" in the last answer. It essentially matches#
+# the old classification with the aggregated classification#
+# using a table of equivalences given by the needs of the study#
+# and data availability.#
+#
+aggmZ <- with(c(regagg,secagg,aggmZ), data.frame(sellRegion = rbName[match(sellRegion,raCode)], sellSector = sbCode[match(sellSector,saCode)], purchRegion = rbName[match(purchRegion, raCode)], purchSector= sbCode[match(purchSector,saCode)], value))#
+#
+# We order by selling region and then by sector#
+aggmZ <- aggmZ[order(sellRegion,sellSector),]#
+#
+# We then concatenate two columns of strings:#
+aggmZ$newSell <- paste(aggmZ$sellRegion, aggmZ$sellSector, sep="_")#
+aggmZ$newPurch <- paste(aggmZ$purchRegion, aggmZ$purchSector, sep="_")#
+# ...drop what's not needed and rearrange the data.frame#
+aggmZ <- aggmZ[c("newSell", "newPurch", "value")]#
+#
+# Finally, we cast the new matrix and save it to csv for viewing in Excel.#
+# Since now not every element of newSell or newPurch uniquely identifies#
+# the data (and hence the need to aggregate), we have to add the aggregating#
+# function "fun.aggregate=sum". It could also be means or any other.#
+# We also make the resulting data frame into a matrix.#
+#
+Z1 <- as.matrix(cast(aggmZ, newSell~newPurch, sum), row.names="1")#
+write.csv(Z1, file = "Zb.csv", fileEncoding = "macroman")#
+#
+rm(list=ls())
+head(aggmZ)
+reshape.R#
+# Aggregate WIOD matrices to different region, sector or both#
+# classifications depending on study or presentation needs.#
+#
+# Renato Vargas#
+# University of Groningen#
+#
+# Preamble:#
+rm(list=ls())#
+setwd(getwd())#
+#
+# First we import the WIOD matrix of input-output relations Z.#
+# We make sure to concatenate the country code and the industry#
+# code in one single variable so that it is easier to manipulate#
+# later. However, before doing that, we change the industry#
+# codes that read: "c1, c2, c3... c35" for codes that order prop-#
+# erly, such as "c01, c02, c03...c33". The reason for this is that#
+# once we manipulate the data, we would like to have it ordered in#
+# the same manner that the WIOD is and for the computer the first#
+# method will result in "c1, c10, c11...c2, c20, c21..., etc.)#
+#
+# Since we are going to have different aggregation levels of#
+# country and industry I will create a unique code that will#
+# identify every pair of country (region) and sector.#
+#
+# Regions will be denoted by "r" and a letter (a, b, c...), #
+# corresponding to the current aggregation (e.g. "rc"). Sectors#
+# will be denoted by "s" and also a letter for the sectoral#
+# classification aggregation for the specific excercise.#
+# individual regions (countries) and sectors will be identified, #
+# respectively, with a two digit correlative number, #
+# specific to each classification aggregation. An example follows:#
+#
+#        ra03_sa04   stands for:#
+#        r            a                  03       #
+#      region     aplication      region correlative#
+#                 classific.      number#
+#                 aggregation#
+#       (r)       (a, b, c...)    (1, 2..., r)#
+#
+#                       _#
+#                   separator#
+#
+#        s            a                  04       #
+#      sector     aplication      sector correlative#
+#                 classific.      number#
+#                 aggregation#
+#       (r)       (a, b, c...)    (1, 2..., s)#
+#
+# Which identifies the fourth sector of the third region in the#
+# first classification aggregation (the original data) "a". In#
+# this case, it corresponds to "Textiles and Textile Products" in#
+# Belgium (BEL).#
+#
+# The intention behind this is to create a correspondence table#
+# which will allow to aggregate from one level of analysis to #
+# another, since classifications differ in detail in the data#
+# available for the three approaches described in the paper. #
+#
+# We import the data as a matrix and make sure that the row names#
+# and column names are recognized as such: "header = TRUE" and #
+# row.names = 1.#
+#
+Z <- as.matrix(read.table("Za.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))#
+#
+# Then we have to create a flat file for manipulation#
+# from the WIOD matrix. The process is called "melt" the #
+# data, and hence the command...#
+#
+library(reshape)#
+mZ <- melt(Z, id="1")#
+#
+# This will yield a ("i" * "j") times 3 data frame (not matrix)#
+# with the first column being the selling sector unique identifier#
+# the second column being the unique sector buyer identifier and#
+# the third column holding the value of the transaction.#
+#
+#         X1     X2        value#
+# 1   AUS_c1 AUS_c1 3107.0305010#
+# 2   AUS_c2 AUS_c1   28.9596573#
+# 3   AUS_c3 AUS_c1  895.4561751#
+# 4   AUS_c4 AUS_c1   28.2739378#
+# 5   AUS_c5 AUS_c1    0.6225808#
+# 6   AUS_c6 AUS_c1   20.0918045#
+# ...#
+# In the WIOD case 1,435 x 1435 = 2,059,225 observations#
+#
+# With the data in this format we break down X1 and X2 in its#
+# components so that we can recode and aggregate accordingly.#
+# This operation will yield some more columns.#
+#
+# In spite of all my attempts for X1 and X2 not to be factors,#
+# but remain strings, melt apparently still converts it to factors.#
+# (Or maybe somewhere else) Luckily we only need to convert#
+# back these two to class "character." Otherwise, we can't split#
+# them. I give up, couldn't find an elegant way to do it.#
+#
+mZ$X1 <- as.character(mZ$X1)#
+mZ$X2 <- as.character(mZ$X2)#
+selling <- strsplit((mZ$X1), "\\_")#
+purchasing <- strsplit((mZ$X2), "\\_")#
+#
+# We extract the first element for sellRegion#
+# and the second element for sell Sector.#
+# We do the same for purchasing.#
+#
+sellRegion <- sapply(selling, "[", 1)#
+sellSector <-sapply(selling, "[", 2)#
+#
+purchRegion <- sapply(purchasing, "[", 1)#
+purchSector <-sapply(purchasing, "[", 2)#
+#
+mZ <- cbind(sellRegion, sellSector, purchRegion, purchSector, mZ)#
+#
+# We get rid of the variables from the "melt" command.#
+myvars <-names(mZ) %in% c("X1", "X2")#
+mZ <- mZ[!myvars]#
+#
+# We load the equivalences tables#
+# To aggregate regions#
+# These are prepared by matching one time regions to "new regions"#
+# and sectors to "new sectors" independently, which gives this#
+# program the flexibility we need to come up with different#
+# levels of aggregation for calculation, summary, or graphic#
+# display purposes.#
+#
+regagg <- read.table("regagg02.csv", header = TRUE, dec = ".", sep=",", comment.char="", stringsAsFactors=FALSE )#
+# ...and sectors#
+secagg <- read.table("secagg02.csv", header = TRUE, dec = ".", sep=",", comment.char="", stringsAsFactors=FALSE)#
+#
+# And code to do the replacement once we have the equivalences#
+# table:#
+#
+aggmZ <- mZ#
+#
+# The following code is a little complicated and comes from#
+# "http://stackoverflow.com/questions/6543798/r-how-to-do-fastest-replacement-in-r" in the last answer. It essentially matches#
+# the old classification with the aggregated classification#
+# using a table of equivalences given by the needs of the study#
+# and data availability.#
+#
+aggmZ <- with(c(regagg,secagg,aggmZ), data.frame(sellRegion = rbName[match(sellRegion,raCode)], sellSector = sbCode[match(sellSector,saCode)], purchRegion = rbName[match(purchRegion, raCode)], purchSector= sbCode[match(purchSector,saCode)], value))#
+#
+# We order by selling region and then by sector#
+aggmZ <- aggmZ[order(sellRegion,sellSector),]#
+#
+# We then concatenate two columns of strings:#
+aggmZ$newSell <- paste(aggmZ$sellRegion, aggmZ$sellSector, sep="_")#
+aggmZ$newPurch <- paste(aggmZ$purchRegion, aggmZ$purchSector, sep="_")#
+# ...drop what's not needed and rearrange the data.frame#
+aggmZ <- aggmZ[c("newSell", "newPurch", "value")]#
+#
+# Finally, we cast the new matrix and save it to csv for viewing in Excel.#
+# Since now not every element of newSell or newPurch uniquely identifies#
+# the data (and hence the need to aggregate), we have to add the aggregating#
+# function "fun.aggregate=sum". It could also be means or any other.#
+# We also make the resulting data frame into a matrix.#
+#
+Z1 <- as.matrix(cast(aggmZ, newSell~newPurch, sum), row.names="1")#
+write.csv(Z1, file = "Zb.csv", fileEncoding = "macroman")#
+#
+# rm(list=ls())
+head(aggmZ)
+source("/Users/renato/Documents/02Study/01_RM-RUG/Thesis/Data/wiodmatrices/2004/reshape02.R")
+head(aggmZ)
+ls()
+rm(list=ls())
+Z <- as.matrix(read.table("aggFDa.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))
+Z <- as.matrix(read.table("aggFDa.csv", header = TRUE, dec = ".", sep=",", row.names = 1))
+dim(Z)
+Z[c(1:3),c(1:3)]
+library(reshape)#
+mZ <- melt(Z, id="1")#
+#
+mZ$X1 <- as.character(mZ$X1)#
+mZ$X2 <- as.character(mZ$X2)
+head(mZ)
+Z <- as.matrix(read.table("aggFDa.csv", header = TRUE, dec = ".", sep=",", row.names = 1))#
+#
+library(reshape)#
+mZ <- melt(Z, id="1")#
+#
+mZ$X1 <- as.character(mZ$X1)#
+mZ$X2 <- as.character(mZ$X2)#
+#
+selling <- strsplit((mZ$X1), "\\_")#
+purchRegion <- mZ$X2#
+#
+sellRegion <- sapply(selling, "[", 1)#
+sellSector <-sapply(selling, "[", 2)#
+#
+mZ <- cbind(sellRegion, sellSector, purchRegion, mZ)#
+#
+myvars <-names(mZ) %in% c("X1", "X2")#
+mZ <- mZ[!myvars]#
+#
+regagg <- read.table("regagg02.csv", header = TRUE, dec = ".", sep=",", comment.char="", stringsAsFactors=FALSE )#
+# ...and sectors#
+secagg <- read.table("secagg02.csv", header = TRUE, dec = ".", sep=",", comment.char="", stringsAsFactors=FALSE)#
+#
+aggmZ <- mZ#
+#
+aggmZ <- with(c(regagg,secagg,aggmZ), data.frame(sellRegion = rbName[match(sellRegion,raName)], sellSector = sbCode[match(sellSector,saCode)], purchRegion = rbName[match(purchRegion, raName)], value))#
+#
+aggmZ <- aggmZ[order(sellRegion,sellSector),]#
+#
+# We then concatenate two columns of strings:#
+aggmZ$newSell <- paste(aggmZ$sellRegion, aggmZ$sellSector, sep="_")#
+#aggmZ$newPurch <- paste(aggmZ$purchRegion, aggmZ$purchSector, sep="_")#
+# ...drop what's not needed and rearrange the data.frame#
+aggmZ <- aggmZ[c("newSell", "purchRegion", "value")]#
+#
+aggFD <- as.matrix(cast(aggmFDb, newSell~newPurch, sum), row.names="1")#
+write.csv(Z1, file = "aggFDb.csv", fileEncoding = "macroman")#
+#
+rm(list=ls())
+Z <- as.matrix(read.table("aggFDa.csv", header = TRUE, dec = ".", sep=",", row.names = 1))#
+#
+library(reshape)#
+mZ <- melt(Z, id="1")#
+#
+mZ$X1 <- as.character(mZ$X1)#
+mZ$X2 <- as.character(mZ$X2)#
+#
+selling <- strsplit((mZ$X1), "\\_")#
+purchRegion <- mZ$X2#
+#
+sellRegion <- sapply(selling, "[", 1)#
+sellSector <-sapply(selling, "[", 2)#
+#
+mZ <- cbind(sellRegion, sellSector, purchRegion, mZ)#
+#
+myvars <-names(mZ) %in% c("X1", "X2")#
+mZ <- mZ[!myvars]#
+#
+regagg <- read.table("regagg02.csv", header = TRUE, dec = ".", sep=",", comment.char="", stringsAsFactors=FALSE )#
+# ...and sectors#
+secagg <- read.table("secagg02.csv", header = TRUE, dec = ".", sep=",", comment.char="", stringsAsFactors=FALSE)#
+#
+aggmZ <- mZ#
+#
+aggmZ <- with(c(regagg,secagg,aggmZ), data.frame(sellRegion = rbName[match(sellRegion,raName)], sellSector = sbCode[match(sellSector,saCode)], purchRegion = rbName[match(purchRegion, raName)], value))#
+#
+aggmZ <- aggmZ[order(sellRegion,sellSector),]#
+#
+# We then concatenate two columns of strings:#
+aggmZ$newSell <- paste(aggmZ$sellRegion, aggmZ$sellSector, sep="_")#
+#aggmZ$newPurch <- paste(aggmZ$purchRegion, aggmZ$purchSector, sep="_")#
+# ...drop what's not needed and rearrange the data.frame#
+aggmZ <- aggmZ[c("newSell", "purchRegion", "value")]#
+#
+aggFD <- as.matrix(cast(aggmZ, newSell~newPurch, sum), row.names="1")#
+write.csv(Z1, file = "aggFDb.csv", fileEncoding = "macroman")#
+#
+rm(list=ls())
+Z <- as.matrix(read.table("aggFDa.csv", header = TRUE, dec = ".", sep=",", row.names = 1))#
+#
+library(reshape)#
+mZ <- melt(Z, id="1")#
+#
+mZ$X1 <- as.character(mZ$X1)#
+mZ$X2 <- as.character(mZ$X2)#
+#
+selling <- strsplit((mZ$X1), "\\_")#
+purchRegion <- mZ$X2#
+#
+sellRegion <- sapply(selling, "[", 1)#
+sellSector <-sapply(selling, "[", 2)#
+#
+mZ <- cbind(sellRegion, sellSector, purchRegion, mZ)#
+#
+myvars <-names(mZ) %in% c("X1", "X2")#
+mZ <- mZ[!myvars]#
+#
+regagg <- read.table("regagg02.csv", header = TRUE, dec = ".", sep=",", comment.char="", stringsAsFactors=FALSE )#
+# ...and sectors#
+secagg <- read.table("secagg02.csv", header = TRUE, dec = ".", sep=",", comment.char="", stringsAsFactors=FALSE)#
+#
+aggmZ <- mZ#
+#
+aggmZ <- with(c(regagg,secagg,aggmZ), data.frame(sellRegion = rbName[match(sellRegion,raName)], sellSector = sbCode[match(sellSector,saCode)], purchRegion = rbName[match(purchRegion, raName)], value))#
+#
+aggmZ <- aggmZ[order(sellRegion,sellSector),]#
+#
+# We then concatenate two columns of strings:#
+aggmZ$newSell <- paste(aggmZ$sellRegion, aggmZ$sellSector, sep="_")#
+#aggmZ$newPurch <- paste(aggmZ$purchRegion, aggmZ$purchSector, sep="_")#
+# ...drop what's not needed and rearrange the data.frame#
+aggmZ <- aggmZ[c("newSell", "purchRegion", "value")]#
+#
+Z1 <- as.matrix(cast(aggmZ, newSell~purchRegion, sum), row.names="1")#
+write.csv(Z1, file = "aggFDb.csv", fileEncoding = "macroman")#
+#
+rm(list=ls())
+Z <- as.matrix(read.table("Zb.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))#
+# Disagregated final demand per region.#
+FD <- as.matrix(read.table("aggFDb.csv", header= TRUE, dec=".", sep=",", row.names=1))
+x <- as.matrix(colSums(Z) + colSums(FD))
+head(x)
+help(col.names)
+help(colnames)
+colnames(x) <- "X"
+head(x)
+colnames(x) <- "x"
+head(x)
+x_nozeros <- x#
+x_nozeros$x[x_nozeros$x  == 0]     <- 1
+x_nozeros <- as.matrix(x)#
+x_nozeros$x[x_nozeros$x  == 0]     <- 1
+dim(x_nozeros)
+x_nozeros <- as.matrix(x)#
+x_nozeros$x[x_nozeros$x  == "0"]     <- "1"
+class(x_nozeros$x)
+class(x_nozeros$1)
+colnames(x) <- "output"#
+x_nozeros <- as.matrix(x)#
+x_nozeros$x[x_nozeros$x  == "0"]     <- "1"
+x_nozeros <- as.matrix(x)#
+x_nozeros$output[x_nozeros$output  == 0]     <- 1
+class(x_nozeros$output)
+x_nozeros <- as.data.frame(x)
+x_nozeros$output[x_nozeros$output  == 0]     <- 1
+x_nozeros <- as.matrix(x_nozeros)
+head(x_nozeros)
+x <- as.matrix(colSums(Z) + colSums(FD))#
+colnames(x) <- "output"#
+x_nozeros <- as.data.frame(x)#
+x_nozeros$x[x_nozeros$x  == 0]     <- 1#
+x_nozeros <- as.matrix(x_nozeros)
+x <- as.matrix(colSums(Z) + colSums(FD))#
+colnames(x) <- "x"#
+x_nozeros <- as.data.frame(x)#
+x_nozeros$x[x_nozeros$x  == 0]     <- 1#
+x_nozeros <- as.matrix(x_nozeros)
+head(x_nozeros)
+A <- as.matrix(Z / as.vector(x_nozeros))
+A[c(1:3), c(1:3)]
+I <- as.matrix(diag(length(as.vector(x_nozeros))))
+dim(I)
+L <- solve(I-A)
+f <- as.matrix(x - ( Z %*% matrix(1,length(as.vector(x_nozeros)),1)))
+c <- as.matrix(as.matrix(d)) / as.matrix(x_nozeros))
+c <- as.matrix(as.matrix(d)) / as.matrix(x_nozeros)
+d <- as.matrix(read.table("cb.csv", header= TRUE, dec=".", sep=",", row.names=1))
+c <- as.matrix(as.matrix(d)) / as.matrix(x_nozeros)
+source("/Users/renato/Documents/02Study/01_RM-RUG/Thesis/Data/wiodmatrices/2004/02_Exercise.R")
+comp <- as.data.frame(read.table("/Users/renato/Documents/02Study/01_RM-RUG/Thesis/Data/wiodmatrices/comp2004.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))
+plot(comp$HRB, comp$LRB)
+comp
+plot(comp$HRB, comp$DRB)
+abline(comp$HRB~comp$DRB)
+plot(comp$DRB, comp$HRB)
+abline(lm(comp$DRB~comp$HRB)
+)
+labels=row.names(comp)
+plot(comp$DRB, comp$HRB)
+labels=row.names(comp)
+library(calibrate)
+textxy(comp$DRB, comp$HRB, row.names(comp))
+getwd()
+reshape.R#
+# Aggregate WIOD matrices to different region, sector or both#
+# classifications depending on study or presentation needs.#
+#
+# Renato Vargas#
+# University of Groningen#
+#
+# Preamble:#
+rm(list=ls())#
+setwd(getwd())#
+#
+# First we import the WIOD matrix of input-output relations Z.#
+# We make sure to concatenate the country code and the industry#
+# code in one single variable so that it is easier to manipulate#
+# later. However, before doing that, we change the industry#
+# codes that read: "c1, c2, c3... c35" for codes that order prop-#
+# erly, such as "c01, c02, c03...c33". The reason for this is that#
+# once we manipulate the data, we would like to have it ordered in#
+# the same manner that the WIOD is and for the computer the first#
+# method will result in "c1, c10, c11...c2, c20, c21..., etc.)#
+#
+# Since we are going to have different aggregation levels of#
+# country and industry I will create a unique code that will#
+# identify every pair of country (region) and sector.#
+#
+# Regions will be denoted by "r" and a letter (a, b, c...), #
+# corresponding to the current aggregation (e.g. "rc"). Sectors#
+# will be denoted by "s" and also a letter for the sectoral#
+# classification aggregation for the specific excercise.#
+# individual regions (countries) and sectors will be identified, #
+# respectively, with a two digit correlative number, #
+# specific to each classification aggregation. An example follows:#
+#
+#        ra03_sa04   stands for:#
+#        r            a                  03       #
+#      region     aplication      region correlative#
+#                 classific.      number#
+#                 aggregation#
+#       (r)       (a, b, c...)    (1, 2..., r)#
+#
+#                       _#
+#                   separator#
+#
+#        s            a                  04       #
+#      sector     aplication      sector correlative#
+#                 classific.      number#
+#                 aggregation#
+#       (r)       (a, b, c...)    (1, 2..., s)#
+#
+# Which identifies the fourth sector of the third region in the#
+# first classification aggregation (the original data) "a". In#
+# this case, it corresponds to "Textiles and Textile Products" in#
+# Belgium (BEL).#
+#
+# The intention behind this is to create a correspondence table#
+# which will allow to aggregate from one level of analysis to #
+# another, since classifications differ in detail in the data#
+# available for the three approaches described in the paper. #
+#
+# We import the data as a matrix and make sure that the row names#
+# and column names are recognized as such: "header = TRUE" and #
+# row.names = 1.#
+#
+Z <- as.matrix(read.table("Za.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))#
+#
+# Then we have to create a flat file for manipulation#
+# from the WIOD matrix. The process is called "melt" the #
+# data, and hence the command...#
+#
+library(reshape)#
+mZ <- melt(Z, id="1")#
+#
+# This will yield a ("i" * "j") times 3 data frame (not matrix)#
+# with the first column being the selling sector unique identifier#
+# the second column being the unique sector buyer identifier and#
+# the third column holding the value of the transaction.#
+#
+#         X1     X2        value#
+# 1   AUS_c1 AUS_c1 3107.0305010#
+# 2   AUS_c2 AUS_c1   28.9596573#
+# 3   AUS_c3 AUS_c1  895.4561751#
+# 4   AUS_c4 AUS_c1   28.2739378#
+# 5   AUS_c5 AUS_c1    0.6225808#
+# 6   AUS_c6 AUS_c1   20.0918045#
+# ...#
+# In the WIOD case 1,435 x 1435 = 2,059,225 observations#
+#
+# With the data in this format we break down X1 and X2 in its#
+# components so that we can recode and aggregate accordingly.#
+# This operation will yield some more columns.#
+#
+# In spite of all my attempts for X1 and X2 not to be factors,#
+# but remain strings, melt apparently still converts it to factors.#
+# (Or maybe somewhere else) Luckily we only need to convert#
+# back these two to class "character." Otherwise, we can't split#
+# them. I give up, couldn't find an elegant way to do it.#
+#
+mZ$X1 <- as.character(mZ$X1)#
+mZ$X2 <- as.character(mZ$X2)#
+selling <- strsplit((mZ$X1), "\\_")#
+purchasing <- strsplit((mZ$X2), "\\_")#
+#
+# We extract the first element for sellRegion#
+# and the second element for sell Sector.#
+# We do the same for purchasing.#
+#
+sellRegion <- sapply(selling, "[", 1)#
+sellSector <-sapply(selling, "[", 2)#
+#
+purchRegion <- sapply(purchasing, "[", 1)#
+purchSector <-sapply(purchasing, "[", 2)#
+#
+mZ <- cbind(sellRegion, sellSector, purchRegion, purchSector, mZ)#
+#
+# We get rid of the variables from the "melt" command.#
+myvars <-names(mZ) %in% c("X1", "X2")#
+mZ <- mZ[!myvars]#
+#
+# We load the equivalences tables#
+# To aggregate regions#
+# These are prepared by matching one time regions to "new regions"#
+# and sectors to "new sectors" independently, which gives this#
+# program the flexibility we need to come up with different#
+# levels of aggregation for calculation, summary, or graphic#
+# display purposes.#
+#
+regagg <- read.table("regagg03.csv", header = TRUE, dec = ".", sep=",", comment.char="", stringsAsFactors=FALSE )#
+# ...and sectors#
+secagg <- read.table("secagg03.csv", header = TRUE, dec = ".", sep=",", comment.char="", stringsAsFactors=FALSE)#
+#
+# And code to do the replacement once we have the equivalences#
+# table:#
+#
+aggmZ <- mZ#
+#
+# The following code is a little complicated and comes from#
+# "http://stackoverflow.com/questions/6543798/r-how-to-do-fastest-replacement-in-r" in the last answer. It essentially matches#
+# the old classification with the aggregated classification#
+# using a table of equivalences given by the needs of the study#
+# and data availability.#
+#
+aggmZ <- with(c(regagg,secagg,aggmZ), data.frame(sellRegion = rbName[match(sellRegion,raName)], sellSector = sbCode[match(sellSector,saCode)], purchRegion = rbName[match(purchRegion, raName)], purchSector= sbCode[match(purchSector,saCode)], value))#
+#
+# We order by selling region and then by sector#
+aggmZ <- aggmZ[order(sellRegion,sellSector),]#
+#
+# We then concatenate two columns of strings:#
+aggmZ$newSell <- paste(aggmZ$sellRegion, aggmZ$sellSector, sep="_")#
+aggmZ$newPurch <- paste(aggmZ$purchRegion, aggmZ$purchSector, sep="_")#
+# ...drop what's not needed and rearrange the data.frame#
+aggmZ <- aggmZ[c("newSell", "newPurch", "value")]#
+#
+# Finally, we cast the new matrix and save it to csv for viewing in Excel.#
+# Since now not every element of newSell or newPurch uniquely identifies#
+# the data (and hence the need to aggregate), we have to add the aggregating#
+# function "fun.aggregate=sum". It could also be means or any other.#
+# We also make the resulting data frame into a matrix.#
+#
+Z1 <- as.matrix(cast(aggmZ, newSell~newPurch, sum), row.names="1")#
+write.csv(Z1, file = "Zc.csv", fileEncoding = "macroman")#
+#
+rm(list=ls())#
+#
+# And now the final demand.#
+#
+Z <- as.matrix(read.table("aggFDa.csv", header = TRUE, dec = ".", sep=",", row.names = 1))#
+#
+library(reshape)#
+mZ <- melt(Z, id="1")#
+#
+mZ$X1 <- as.character(mZ$X1)#
+mZ$X2 <- as.character(mZ$X2)#
+#
+selling <- strsplit((mZ$X1), "\\_")#
+purchRegion <- mZ$X2#
+#
+sellRegion <- sapply(selling, "[", 1)#
+sellSector <-sapply(selling, "[", 2)#
+#
+mZ <- cbind(sellRegion, sellSector, purchRegion, mZ)#
+#
+myvars <-names(mZ) %in% c("X1", "X2")#
+mZ <- mZ[!myvars]#
+#
+regagg <- read.table("regagg03.csv", header = TRUE, dec = ".", sep=",", comment.char="", stringsAsFactors=FALSE )#
+# ...and sectors#
+secagg <- read.table("secagg03.csv", header = TRUE, dec = ".", sep=",", comment.char="", stringsAsFactors=FALSE)#
+#
+aggmZ <- mZ#
+#
+aggmZ <- with(c(regagg,secagg,aggmZ), data.frame(sellRegion = rbName[match(sellRegion,raName)], sellSector = sbCode[match(sellSector,saCode)], purchRegion = rbName[match(purchRegion, raName)], value))#
+#
+aggmZ <- aggmZ[order(sellRegion,sellSector),]#
+#
+# We then concatenate two columns of strings:#
+aggmZ$newSell <- paste(aggmZ$sellRegion, aggmZ$sellSector, sep="_")#
+#aggmZ$newPurch <- paste(aggmZ$purchRegion, aggmZ$purchSector, sep="_")#
+# ...drop what's not needed and rearrange the data.frame#
+aggmZ <- aggmZ[c("newSell", "purchRegion", "value")]#
+#
+Z1 <- as.matrix(cast(aggmZ, newSell~purchRegion, sum), row.names="1")#
+write.csv(Z1, file = "aggFDc.csv", fileEncoding = "macroman")#
+#
+rm(list=ls())
+03_Exercise.R#
+##
+# Estimate direct and indirect work injuries (laborsta) - US-Ger#
+rm(list=ls())#
+setwd(getwd())#
+#
+#x_nozeros <- as.matrix(read.table("xa_nozeros.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))#
+#x <- as.matrix(read.table("xa.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))#
+Z <- as.matrix(read.table("Zc.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))#
+# Disagregated final demand per region.#
+FD <- as.matrix(read.table("aggFDc.csv", header= TRUE, dec=".", sep=",", row.names=1))#
+d <- as.matrix(read.table("dc.csv", header= TRUE, dec=".", sep=",", row.names=1))#
+x <- as.matrix(colSums(Z) + colSums(FD))#
+colnames(x) <- "x"#
+x_nozeros <- as.data.frame(x)#
+x_nozeros$x[x_nozeros$x  == 0]     <- 1#
+x_nozeros <- as.matrix(x_nozeros)#
+#
+# xv <- as.vector(x_nozeros)#
+#This is what I would normally do, but I realized it's less accurate#
+# then just dividing by the vector elementwise and recycling.#
+# xhat <- diag(xv)#
+A <- as.matrix(Z / as.vector(x_nozeros))#
+I <- as.matrix(diag(length(as.vector(x_nozeros))))#
+L <- solve(I-A) #
+f <- as.matrix(x - ( Z %*% matrix(1,length(as.vector(x_nozeros)),1)))#
+x1 <- L %*% f#
+#
+# This calibrates the model#
+xdiff <- (x1-x)#
+xcomp <- cbind(x,x1,xdiff)#
+write.csv(xcomp, file = "/Users/renato/Documents/02Study/01_RM-RUG/Thesis/Data/wiodmatrices/xc_comp.csv", fileEncoding = "macroman")#
+#
+# This is where the exercise is different. Our "c" is not calculated#
+# with the same data, but it is given by WHO fatalities.#
+#
+# Divide deaths by the output element-wise#
+c <- as.matrix(as.matrix(d)) / as.matrix(x_nozeros)#
+#
+# On with the calculations, we multiply a diagonal vector of it by L#
+#
+H <- as.matrix(diag(as.vector(c))%*%L)#
+#
+# This is a matrix of the producer responsibilities.#
+PR <- as.matrix(H %*% diag(rowSums(FD)))#
+#
+# And let's calculate the actual values#
+prodres <- matrix(as.matrix(rowSums(PR)) - as.matrix(colSums(PR)), dimnames= dimnames(x))#
+#
+prodres2 <- matrix(as.matrix(rowSums(PR)) - as.matrix(diag(PR)), dimnames= dimnames(x))#
+#
+prodres3 <- matrix(as.matrix(rowSums(PR)), dimnames= dimnames(x))#
+#
+# # We aggregate by country to calculate responsibilities (see reshape.R).#
+#
+# FAILED ATTEMPT, SWITCHING TO MANUAL#
+#
+# library(reshape)#
+# mprodres <- melt(prodres, id="1")#
+# mprodres$X1 <- as.character(mprodres$X1)#
+# mprodres$X2 <- as.character(mprodres$X2)#
+# selling <- strsplit((mprodres$X1), "\\_")#
+# sellRegion <- sapply(selling, "[", 1)#
+# sellSector <- sapply(selling, "[", 2)#
+# mprodres <- cbind(sellRegion, sellSector, mprodres)#
+# # Get rid of vars from melt#
+# myvars <- names(mprodres) %in% c("X1")#
+# mprodres <- mprodres[!myvars]#
+#
+# aggPR <- mprodres#
+#
+# # We order by selling region and then by sector#
+# aggPR <- aggPR[order(sellRegion, sellSector),]#
+#
+# # ...drop what's not needed and rearrange the data.frame#
+# aggPR <- aggPR[c("sellRegion", "X2", "value")]#
+#
+# aggPR$sellRegion <- as.character(aggPR$sellRegion)#
+# aggPR$X2 <- as.character(aggPR$X2)#
+#
+# # And cast#
+# aggPR <- as.matrix(cast(aggPR, sellRegion~X2, sum), row.names="1")#
+# write.csv(aggPR, file = "aggPR.csv", fileEncoding = "macroman")#
+############
+#
+write.csv(PR, file = "PRc.csv", fileEncoding = "macroman")#
+write.csv(prodres, file = "prodresc.csv", fileEncoding = "macroman")#
+write.csv(prodres2, file = "prodres2c.csv", fileEncoding = "macroman")#
+write.csv(prodres3, file = "prodres3c.csv", fileEncoding = "macroman")#
+#
+# And this is a matrix of the consumer responsibilities.#
+FDR <- as.matrix(H %*% FD)#
+#
+library(reshape)#
+fdresdb <- melt(FDR, id="1")#
+#
+# And its column sum is the actual region responsibility#
+fdres <- as.matrix(colSums(FDR))#
+#
+write.csv(FDR, file = "FDRc.csv", fileEncoding = "macroman")#
+write.csv(fdres, file = "fdresc.csv", fileEncoding = "macroman")#
+write.csv(fdresdb, file = "fdresdbc.csv", fileEncoding = "macroman")#
+rm(list=ls())
+getwd()
+03_Exercise.R#
+##
+# Estimate direct and indirect work injuries (laborsta) - US-Ger#
+rm(list=ls())#
+setwd(getwd())#
+#
+#x_nozeros <- as.matrix(read.table("xa_nozeros.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))#
+#x <- as.matrix(read.table("xa.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))#
+Z <- as.matrix(read.table("Zc.csv", header = TRUE, dec = ".", sep=",", row.names = 1))#
+# Disagregated final demand per region.#
+FD <- as.matrix(read.table("aggFDc.csv", header= TRUE, dec=".", sep=",", row.names=1))#
+d <- as.matrix(read.table("dc.csv", header= TRUE, dec=".", sep=",", row.names=1))#
+x <- as.matrix(colSums(Z) + colSums(FD))#
+colnames(x) <- "x"#
+x_nozeros <- as.data.frame(x)#
+x_nozeros$x[x_nozeros$x  == 0]     <- 1#
+x_nozeros <- as.matrix(x_nozeros)#
+#
+# xv <- as.vector(x_nozeros)#
+#This is what I would normally do, but I realized it's less accurate#
+# then just dividing by the vector elementwise and recycling.#
+# xhat <- diag(xv)#
+A <- as.matrix(Z / as.vector(x_nozeros))#
+I <- as.matrix(diag(length(as.vector(x_nozeros))))#
+L <- solve(I-A) #
+f <- as.matrix(x - ( Z %*% matrix(1,length(as.vector(x_nozeros)),1)))#
+x1 <- L %*% f#
+#
+# This calibrates the model#
+xdiff <- (x1-x)#
+xcomp <- cbind(x,x1,xdiff)#
+write.csv(xcomp, file = "/Users/renato/Documents/02Study/01_RM-RUG/Thesis/Data/wiodmatrices/xc_comp.csv", fileEncoding = "macroman")#
+#
+# This is where the exercise is different. Our "c" is not calculated#
+# with the same data, but it is given by WHO fatalities.#
+#
+# Divide deaths by the output element-wise#
+c <- as.matrix(as.matrix(d)) / as.matrix(x_nozeros)#
+#
+# On with the calculations, we multiply a diagonal vector of it by L#
+#
+H <- as.matrix(diag(as.vector(c))%*%L)#
+#
+# This is a matrix of the producer responsibilities.#
+PR <- as.matrix(H %*% diag(rowSums(FD)))#
+#
+# And let's calculate the actual values#
+prodres <- matrix(as.matrix(rowSums(PR)) - as.matrix(colSums(PR)), dimnames= dimnames(x))#
+#
+prodres2 <- matrix(as.matrix(rowSums(PR)) - as.matrix(diag(PR)), dimnames= dimnames(x))#
+#
+prodres3 <- matrix(as.matrix(rowSums(PR)), dimnames= dimnames(x))#
+#
+# # We aggregate by country to calculate responsibilities (see reshape.R).#
+#
+# FAILED ATTEMPT, SWITCHING TO MANUAL#
+#
+# library(reshape)#
+# mprodres <- melt(prodres, id="1")#
+# mprodres$X1 <- as.character(mprodres$X1)#
+# mprodres$X2 <- as.character(mprodres$X2)#
+# selling <- strsplit((mprodres$X1), "\\_")#
+# sellRegion <- sapply(selling, "[", 1)#
+# sellSector <- sapply(selling, "[", 2)#
+# mprodres <- cbind(sellRegion, sellSector, mprodres)#
+# # Get rid of vars from melt#
+# myvars <- names(mprodres) %in% c("X1")#
+# mprodres <- mprodres[!myvars]#
+#
+# aggPR <- mprodres#
+#
+# # We order by selling region and then by sector#
+# aggPR <- aggPR[order(sellRegion, sellSector),]#
+#
+# # ...drop what's not needed and rearrange the data.frame#
+# aggPR <- aggPR[c("sellRegion", "X2", "value")]#
+#
+# aggPR$sellRegion <- as.character(aggPR$sellRegion)#
+# aggPR$X2 <- as.character(aggPR$X2)#
+#
+# # And cast#
+# aggPR <- as.matrix(cast(aggPR, sellRegion~X2, sum), row.names="1")#
+# write.csv(aggPR, file = "aggPR.csv", fileEncoding = "macroman")#
+############
+#
+write.csv(PR, file = "PRc.csv", fileEncoding = "macroman")#
+write.csv(prodres, file = "prodresc.csv", fileEncoding = "macroman")#
+write.csv(prodres2, file = "prodres2c.csv", fileEncoding = "macroman")#
+write.csv(prodres3, file = "prodres3c.csv", fileEncoding = "macroman")#
+#
+# And this is a matrix of the consumer responsibilities.#
+FDR <- as.matrix(H %*% FD)#
+#
+library(reshape)#
+fdresdb <- melt(FDR, id="1")#
+#
+# And its column sum is the actual region responsibility#
+fdres <- as.matrix(colSums(FDR))#
+#
+write.csv(FDR, file = "FDRc.csv", fileEncoding = "macroman")#
+write.csv(fdres, file = "fdresc.csv", fileEncoding = "macroman")#
+write.csv(fdresdb, file = "fdresdbc.csv", fileEncoding = "macroman")#
+rm(list=ls())
+reshape.R#
+# Aggregate WIOD matrices to different region, sector or both#
+# classifications depending on study or presentation needs.#
+#
+# Renato Vargas#
+# University of Groningen#
+#
+# Preamble:#
+rm(list=ls())#
+setwd(getwd())#
+#
+# First we import the WIOD matrix of input-output relations Z.#
+# We make sure to concatenate the country code and the industry#
+# code in one single variable so that it is easier to manipulate#
+# later. However, before doing that, we change the industry#
+# codes that read: "c1, c2, c3... c35" for codes that order prop-#
+# erly, such as "c01, c02, c03...c33". The reason for this is that#
+# once we manipulate the data, we would like to have it ordered in#
+# the same manner that the WIOD is and for the computer the first#
+# method will result in "c1, c10, c11...c2, c20, c21..., etc.)#
+#
+# Since we are going to have different aggregation levels of#
+# country and industry I will create a unique code that will#
+# identify every pair of country (region) and sector.#
+#
+# Regions will be denoted by "r" and a letter (a, b, c...), #
+# corresponding to the current aggregation (e.g. "rc"). Sectors#
+# will be denoted by "s" and also a letter for the sectoral#
+# classification aggregation for the specific excercise.#
+# individual regions (countries) and sectors will be identified, #
+# respectively, with a two digit correlative number, #
+# specific to each classification aggregation. An example follows:#
+#
+#        ra03_sa04   stands for:#
+#        r            a                  03       #
+#      region     aplication      region correlative#
+#                 classific.      number#
+#                 aggregation#
+#       (r)       (a, b, c...)    (1, 2..., r)#
+#
+#                       _#
+#                   separator#
+#
+#        s            a                  04       #
+#      sector     aplication      sector correlative#
+#                 classific.      number#
+#                 aggregation#
+#       (r)       (a, b, c...)    (1, 2..., s)#
+#
+# Which identifies the fourth sector of the third region in the#
+# first classification aggregation (the original data) "a". In#
+# this case, it corresponds to "Textiles and Textile Products" in#
+# Belgium (BEL).#
+#
+# The intention behind this is to create a correspondence table#
+# which will allow to aggregate from one level of analysis to #
+# another, since classifications differ in detail in the data#
+# available for the three approaches described in the paper. #
+#
+# We import the data as a matrix and make sure that the row names#
+# and column names are recognized as such: "header = TRUE" and #
+# row.names = 1.#
+#
+Z <- as.matrix(read.table("Za.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))#
+#
+# Then we have to create a flat file for manipulation#
+# from the WIOD matrix. The process is called "melt" the #
+# data, and hence the command...#
+#
+library(reshape)#
+mZ <- melt(Z, id="1")#
+#
+# This will yield a ("i" * "j") times 3 data frame (not matrix)#
+# with the first column being the selling sector unique identifier#
+# the second column being the unique sector buyer identifier and#
+# the third column holding the value of the transaction.#
+#
+#         X1     X2        value#
+# 1   AUS_c1 AUS_c1 3107.0305010#
+# 2   AUS_c2 AUS_c1   28.9596573#
+# 3   AUS_c3 AUS_c1  895.4561751#
+# 4   AUS_c4 AUS_c1   28.2739378#
+# 5   AUS_c5 AUS_c1    0.6225808#
+# 6   AUS_c6 AUS_c1   20.0918045#
+# ...#
+# In the WIOD case 1,435 x 1435 = 2,059,225 observations#
+#
+# With the data in this format we break down X1 and X2 in its#
+# components so that we can recode and aggregate accordingly.#
+# This operation will yield some more columns.#
+#
+# In spite of all my attempts for X1 and X2 not to be factors,#
+# but remain strings, melt apparently still converts it to factors.#
+# (Or maybe somewhere else) Luckily we only need to convert#
+# back these two to class "character." Otherwise, we can't split#
+# them. I give up, couldn't find an elegant way to do it.#
+#
+mZ$X1 <- as.character(mZ$X1)#
+mZ$X2 <- as.character(mZ$X2)#
+selling <- strsplit((mZ$X1), "\\_")#
+purchasing <- strsplit((mZ$X2), "\\_")#
+#
+# We extract the first element for sellRegion#
+# and the second element for sell Sector.#
+# We do the same for purchasing.#
+#
+sellRegion <- sapply(selling, "[", 1)#
+sellSector <-sapply(selling, "[", 2)#
+#
+purchRegion <- sapply(purchasing, "[", 1)#
+purchSector <-sapply(purchasing, "[", 2)#
+#
+mZ <- cbind(sellRegion, sellSector, purchRegion, purchSector, mZ)#
+#
+# We get rid of the variables from the "melt" command.#
+myvars <-names(mZ) %in% c("X1", "X2")#
+mZ <- mZ[!myvars]#
+#
+# We load the equivalences tables#
+# To aggregate regions#
+# These are prepared by matching one time regions to "new regions"#
+# and sectors to "new sectors" independently, which gives this#
+# program the flexibility we need to come up with different#
+# levels of aggregation for calculation, summary, or graphic#
+# display purposes.#
+#
+regagg <- read.table("regagg03.csv", header = TRUE, dec = ".", sep=",", comment.char="", stringsAsFactors=FALSE )#
+# ...and sectors#
+secagg <- read.table("secagg03.csv", header = TRUE, dec = ".", sep=",", comment.char="", stringsAsFactors=FALSE)#
+#
+# And code to do the replacement once we have the equivalences#
+# table:#
+#
+aggmZ <- mZ#
+#
+# The following code is a little complicated and comes from#
+# "http://stackoverflow.com/questions/6543798/r-how-to-do-fastest-replacement-in-r" in the last answer. It essentially matches#
+# the old classification with the aggregated classification#
+# using a table of equivalences given by the needs of the study#
+# and data availability.#
+#
+aggmZ <- with(c(regagg,secagg,aggmZ), data.frame(sellRegion = rbName[match(sellRegion,raName)], sellSector = sbCode[match(sellSector,saCode)], purchRegion = rbName[match(purchRegion, raName)], purchSector= sbCode[match(purchSector,saCode)], value))#
+#
+# We order by selling region and then by sector#
+aggmZ <- aggmZ[order(sellRegion,sellSector),]#
+#
+# We then concatenate two columns of strings:#
+aggmZ$newSell <- paste(aggmZ$sellRegion, aggmZ$sellSector, sep="_")#
+aggmZ$newPurch <- paste(aggmZ$purchRegion, aggmZ$purchSector, sep="_")#
+# ...drop what's not needed and rearrange the data.frame#
+aggmZ <- aggmZ[c("newSell", "newPurch", "value")]#
+#
+# Finally, we cast the new matrix and save it to csv for viewing in Excel.#
+# Since now not every element of newSell or newPurch uniquely identifies#
+# the data (and hence the need to aggregate), we have to add the aggregating#
+# function "fun.aggregate=sum". It could also be means or any other.#
+# We also make the resulting data frame into a matrix.#
+#
+Z1 <- as.matrix(cast(aggmZ, newSell~newPurch, sum), row.names="1")#
+write.csv(Z1, file = "Zc.csv", fileEncoding = "macroman")#
+#
+rm(list=ls())#
+#
+# And now the final demand.#
+#
+Z <- as.matrix(read.table("aggFDa.csv", header = TRUE, dec = ".", sep=",", row.names = 1))#
+#
+library(reshape)#
+mZ <- melt(Z, id="1")#
+#
+mZ$X1 <- as.character(mZ$X1)#
+mZ$X2 <- as.character(mZ$X2)#
+#
+selling <- strsplit((mZ$X1), "\\_")#
+purchRegion <- mZ$X2#
+#
+sellRegion <- sapply(selling, "[", 1)#
+sellSector <-sapply(selling, "[", 2)#
+#
+mZ <- cbind(sellRegion, sellSector, purchRegion, mZ)#
+#
+myvars <-names(mZ) %in% c("X1", "X2")#
+mZ <- mZ[!myvars]#
+#
+regagg <- read.table("regagg03.csv", header = TRUE, dec = ".", sep=",", comment.char="", stringsAsFactors=FALSE )#
+# ...and sectors#
+secagg <- read.table("secagg03.csv", header = TRUE, dec = ".", sep=",", comment.char="", stringsAsFactors=FALSE)#
+#
+aggmZ <- mZ#
+#
+aggmZ <- with(c(regagg,secagg,aggmZ), data.frame(sellRegion = rbName[match(sellRegion,raName)], sellSector = sbCode[match(sellSector,saCode)], purchRegion = rbName[match(purchRegion, raName)], value))#
+#
+aggmZ <- aggmZ[order(sellRegion,sellSector),]#
+#
+# We then concatenate two columns of strings:#
+aggmZ$newSell <- paste(aggmZ$sellRegion, aggmZ$sellSector, sep="_")#
+#aggmZ$newPurch <- paste(aggmZ$purchRegion, aggmZ$purchSector, sep="_")#
+# ...drop what's not needed and rearrange the data.frame#
+aggmZ <- aggmZ[c("newSell", "purchRegion", "value")]#
+#
+Z1 <- as.matrix(cast(aggmZ, newSell~purchRegion, sum), row.names="1")#
+write.csv(Z1, file = "aggFDc.csv", fileEncoding = "macroman")#
+#
+rm(list=ls())
+03_Exercise.R#
+##
+# Estimate direct and indirect work injuries (laborsta) - US-Ger#
+rm(list=ls())#
+setwd(getwd())#
+#
+#x_nozeros <- as.matrix(read.table("xa_nozeros.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))#
+#x <- as.matrix(read.table("xa.csv", header = TRUE, dec = ".", sep=",", comment.char="\"", row.names = 1))#
+Z <- as.matrix(read.table("Zc.csv", header = TRUE, dec = ".", sep=",", row.names = 1))#
+# Disagregated final demand per region.#
+FD <- as.matrix(read.table("aggFDc.csv", header= TRUE, dec=".", sep=",", row.names=1))#
+d <- as.matrix(read.table("dc.csv", header= TRUE, dec=".", sep=",", row.names=1))#
+x <- as.matrix(colSums(Z) + colSums(FD))#
+colnames(x) <- "x"#
+x_nozeros <- as.data.frame(x)#
+x_nozeros$x[x_nozeros$x  == 0]     <- 1#
+x_nozeros <- as.matrix(x_nozeros)#
+#
+# xv <- as.vector(x_nozeros)#
+#This is what I would normally do, but I realized it's less accurate#
+# then just dividing by the vector elementwise and recycling.#
+# xhat <- diag(xv)#
+A <- as.matrix(Z / as.vector(x_nozeros))#
+I <- as.matrix(diag(length(as.vector(x_nozeros))))#
+L <- solve(I-A) #
+f <- as.matrix(x - ( Z %*% matrix(1,length(as.vector(x_nozeros)),1)))#
+x1 <- L %*% f#
+#
+# This calibrates the model#
+xdiff <- (x1-x)#
+xcomp <- cbind(x,x1,xdiff)#
+write.csv(xcomp, file = "/Users/renato/Documents/02Study/01_RM-RUG/Thesis/Data/wiodmatrices/xc_comp.csv", fileEncoding = "macroman")#
+#
+# This is where the exercise is different. Our "c" is not calculated#
+# with the same data, but it is given by WHO fatalities.#
+#
+# Divide deaths by the output element-wise#
+c <- as.matrix(as.matrix(d)) / as.matrix(x_nozeros)#
+#
+# On with the calculations, we multiply a diagonal vector of it by L#
+#
+H <- as.matrix(diag(as.vector(c))%*%L)#
+#
+# This is a matrix of the producer responsibilities.#
+PR <- as.matrix(H %*% diag(rowSums(FD)))#
+#
+# And let's calculate the actual values#
+prodres <- matrix(as.matrix(rowSums(PR)) - as.matrix(colSums(PR)), dimnames= dimnames(x))#
+#
+prodres2 <- matrix(as.matrix(rowSums(PR)) - as.matrix(diag(PR)), dimnames= dimnames(x))#
+#
+prodres3 <- matrix(as.matrix(rowSums(PR)), dimnames= dimnames(x))#
+#
+# # We aggregate by country to calculate responsibilities (see reshape.R).#
+#
+# FAILED ATTEMPT, SWITCHING TO MANUAL#
+#
+# library(reshape)#
+# mprodres <- melt(prodres, id="1")#
+# mprodres$X1 <- as.character(mprodres$X1)#
+# mprodres$X2 <- as.character(mprodres$X2)#
+# selling <- strsplit((mprodres$X1), "\\_")#
+# sellRegion <- sapply(selling, "[", 1)#
+# sellSector <- sapply(selling, "[", 2)#
+# mprodres <- cbind(sellRegion, sellSector, mprodres)#
+# # Get rid of vars from melt#
+# myvars <- names(mprodres) %in% c("X1")#
+# mprodres <- mprodres[!myvars]#
+#
+# aggPR <- mprodres#
+#
+# # We order by selling region and then by sector#
+# aggPR <- aggPR[order(sellRegion, sellSector),]#
+#
+# # ...drop what's not needed and rearrange the data.frame#
+# aggPR <- aggPR[c("sellRegion", "X2", "value")]#
+#
+# aggPR$sellRegion <- as.character(aggPR$sellRegion)#
+# aggPR$X2 <- as.character(aggPR$X2)#
+#
+# # And cast#
+# aggPR <- as.matrix(cast(aggPR, sellRegion~X2, sum), row.names="1")#
+# write.csv(aggPR, file = "aggPR.csv", fileEncoding = "macroman")#
+############
+#
+write.csv(PR, file = "PRc.csv", fileEncoding = "macroman")#
+write.csv(prodres, file = "prodresc.csv", fileEncoding = "macroman")#
+write.csv(prodres2, file = "prodres2c.csv", fileEncoding = "macroman")#
+write.csv(prodres3, file = "prodres3c.csv", fileEncoding = "macroman")#
+#
+# And this is a matrix of the consumer responsibilities.#
+FDR <- as.matrix(H %*% FD)#
+#
+library(reshape)#
+fdresdb <- melt(FDR, id="1")#
+#
+# And its column sum is the actual region responsibility#
+fdres <- as.matrix(colSums(FDR))#
+#
+write.csv(FDR, file = "FDRc.csv", fileEncoding = "macroman")#
+write.csv(fdres, file = "fdresc.csv", fileEncoding = "macroman")#
+write.csv(fdresdb, file = "fdresdbc.csv", fileEncoding = "macroman")#
+rm(list=ls())
+dim(x_nozeros)
+source("/Users/renato/Documents/02Study/01_RM-RUG/Thesis/Data/wiodmatrices/2004/03_Exercise.R")
+dim(x_nozeros)
+dim(d)
