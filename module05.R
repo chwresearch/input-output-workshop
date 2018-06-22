@@ -6,7 +6,7 @@
 # PREAMBLE
 
 rm(list=ls())
-setwd("/Users/renato/Documents/02Study/01_RM-RUG/Thesis/Data/wiodmatrices")
+setwd("/Users/renato/data/input-output-workshop/")
 
 # IMPORTANT: CHANGE THESE THREE PARAMETERS========
 # AND DON'T FORGET TO CHANGE THE YEARS AT THE END

@@ -49,12 +49,14 @@ dim(A)
 
 # We use the number of rows to create an appropriate identity matrix
 
-I <- diag(dim(A)[1])
+I <- diag(   dim(A)[1]    )
+I
 
 # We estimate our Leontief matrix
 L <- solve( I - A )
 L
 
+# We check that the original x = Lf (Our model is calibrated!) 
 L %*% f
 
 # What would happen if we changed our final demand?
@@ -71,7 +73,7 @@ xnew
 
 # From the def of coefficients Z= A %*% xhat we find Znew
 
-Znew = A %*% diag(xnew)  # error
+Znew <- A %*% diag(xnew)  # error
 
 # It gives us an error because the resulting xnew vector is defined
 # as a matrix by R and the diag() function works differently if a
@@ -79,7 +81,8 @@ Znew = A %*% diag(xnew)  # error
 help("diag")
 help("as.vector")
 
-Znew = A %*% diag(as.vector(xnew))
+Znew <- A %*% diag(c(xnew))
+Znew <- A %*% diag(as.vector(xnew))
 Znew
 
 # So our new table
@@ -125,7 +128,7 @@ epsilon <- eprime / x
 # In matrix algebra you would have to transpose e and 
 # postmultiply it by a diagonal version of x
 epsilon <- t(as.matrix(eprime)) %*% solve(diag(x))
-
+epsilon
 # Epsilon is your vector of employment coefficients.
 
 # enewi then your new vector of employment levels
