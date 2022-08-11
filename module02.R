@@ -24,7 +24,7 @@
 # First we create our Input-Output table of interindustry
 # flow of goods
 Z <- matrix(c(150,500,200,100), nrow = 2, ncol = 2, byrow = TRUE)
-ind <- c("Agriculture", "Manufacturing")
+ind <- c("сельское хозяйство", "Производство")
 colnames(Z) <- ind 
 rownames(Z) <- ind
 
@@ -110,40 +110,20 @@ deltaZ <- Znew - Z
 
 # In pounds. Exchange rate 0.754796 GBP for 1 USD
 
-xrt <- 0.754796
+xrt <- 85
 
 deltaf * xrt
 deltax * xrt
 deltaZ * xrt
 
+# Environmental impacts or uses can be given by 
+#vectors of coeficients by unit of output. For example, 
+#let's imagine that the water use of each sector is given
+#by the following vector for Agriculture and Manufactures. 
 
-# Other impacts can be derived as coefficients from our model
-
-eprime <- c(300, 500)
-
-# This only works because of the recycle rule in r and 
-# vectors being dimensionless
-epsilon <- eprime / x
-
-# In matrix algebra you would have to transpose e and 
-# postmultiply it by a diagonal version of x
-epsilon <- t(as.matrix(eprime)) %*% solve(diag(x))
-epsilon
-# Epsilon is your vector of employment coefficients.
-
-# enewi then your new vector of employment levels
-enew <- diag(c(epsilon)) %*% L %*% fnew
-
-# Suppose we have two types of disaggregations: male and female
-Prnames <- c("male", "female")
-
-P <- matrix(c(0.6, 0.4, 0.8, 0.2), nrow = 2, ncol = 2) # note byrow = FALSE
-rownames(P) <- Prnames
-
-# Then expenditures in employment by occupation by sector would be:
-
-Pepsilon <- P %*% diag(c(epsilon)) %*% L %*% fnew
-colnames(Pepsilon) <- c("Employment expend.")
-Pepsilon
-
+eprime <- t(as.matrix(c(300, 500)))
+ind <- c("Agriculture", "Manufacturing")
+rownames(eprime) <- "Cubic meters of water" # c("Agriculture", "Manufacturing")
+colnames(eprime) <- ind
+eprime
 

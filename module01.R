@@ -28,16 +28,15 @@ help("c")
 c <- c(2, 1, 3, 4, 6, 12)
 c
 
-# We can comment out the return for readability of our code.
-c <- c(2, 1,  3, #
+c <- c(2, 1,  3, 
        4, 6, 12)
 
 # Then we "fill out" our matrix with it
 help("matrix")
 
 M <- matrix(c, nrow = 2, ncol = 3, byrow = TRUE)
+M
 
-M <- matrix( c, nrow = 2,ncol = 3, byrow = TRUE ) 
 # And we take a look at it
 M
 
@@ -54,7 +53,7 @@ help("as.matrix")
 # dimensions can be added.
 
 # Let's add a second Matrix
-N <- matrix(    c(1,2,3,3,2,1)    ,   nrow = 2   , ncol = 3 , byrow = TRUE)
+N <- matrix( c(1,2,3,3,2,1)  , nrow = 2  , ncol = 3 , byrow = TRUE)
 N
 
 # And add them (matrices have to have the same dimensions for addition)
@@ -97,7 +96,6 @@ M == N
 
 # Check for equality
 
-help("isTRUE")
 isTRUE(   M == N   )
 
 # The null matrix
@@ -107,8 +105,14 @@ isTRUE(   M == N   )
 # leaves that number unchanged. In matrix algebra it is a matrix containing
 # only zeros.
 
-Z <- matrix(     c(0,0,0,  0, 0, 0)      , nrow = 2, ncol = 3, byrow = TRUE)
+Z <- matrix( c(0,0,0,0,0,0) , nrow = 2, ncol = 3, byrow = TRUE)
 Z
+
+M 
+M + Z
+
+Z - M
+
 # You can pass a scalar to the matrix() function if you want all 
 # cells to be the same.
 Z <- matrix( 0, nrow = 2, ncol = 3, byrow = TRUE)
@@ -118,7 +122,8 @@ Z <- matrix( 0, nrow = 2, ncol = 3, byrow = TRUE)
 # matrix is simply multipplid by that number.
 
 M
-Mx2 <- M*2
+Mx2 <- M * 2
+Mx2
 
 # Remove an object from the environment
 rm(Mx2)
@@ -167,13 +172,15 @@ P
 #         [1,]    2    1    3
 #         [2,]    4    6   12
 
+TM <- matrix( 1, nrow = 3, ncol = 3)
+
 M %*% matrix( 1, nrow = 3, ncol = 3)
 
-# By what matrix could M be postmultiplied so it remains unchanges.
+# By what matrix could M be postmultiplied so it remains unchanged.
 # Hint: A matrix of ones is not a correct answer, because of the
 # rules of matrix multiplication. The only answer is a diagonal of 1s.
 
-I <- matrix( c(1, 0, 0,   0, 1, 0,  0, 0, 1), nrow = 3, ncol = 3, byrow = TRUE)
+I <- matrix( c(1, 0, 0, 0, 1, 0,0, 0, 1), nrow = 3, ncol = 3, byrow = TRUE)
 
 # Then we recall what M looks like
 M
@@ -197,8 +204,8 @@ help("diag")
 I3 <-  diag(3)
 
 # Let try a bigger one:
-I10 <- diag(10)
-I10
+I38 <- diag( 38  )
+I
 
 # Get the right identity matrix dimension automagically
 diag(   dim(M)[2]   )
@@ -216,7 +223,7 @@ diag( dim(M)[1] ) %*% M
 # becomes column i of M^t
 
 Mt <- t(M)
-t(M)
+Mt
 
 # In matrix algebra an n-element column vector is an n-element row vector.
 # In R this is somewhat irrelevant as vectors are dimensionless and you can
@@ -291,6 +298,8 @@ b
 # Use the solve() function to obtain the inverse of a matrix.
 
 solve(A)
+
+round( solve(A) %*% A, 0)
 
 # Some matrices where cross-products are zero do not have inverses like:
 C <- matrix(c(2,4,6,12), nrow = 2, ncol = 2)
